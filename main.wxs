@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <?ifdef env.MSIBUILD?>
+      <?define MODULE_SUFFIX = $(env.MSIOS)$(env.MSIARCH)$(env.MSIBUILD)?>
+    <?else?>
+      <?define MODULE_SUFFIX = $(env.MSIOS)$(env.MSIARCH)?>
+    <?endif?>
+    <Product
+        Id='{C5A39AF6-A22B-4DD6-9498-5852B119A2A0}'
+        Name='Qubes Windows Tools'
+        UpgradeCode='{24EE536D-8A0F-4669-8630-67B185065769}'
+        Language='1033'
+        Codepage='1252'
+        Version='1.0.0'
+        Manufacturer='Invisible Things Lab'>
+        <Package
+            Id='*'
+            Description='Qubes Windows Tools'
+            Manufacturer='Invisible Things Lab'
+            InstallerVersion='200'
+            Languages='1033'
+            Compressed='yes'
+            SummaryCodepage='1252'/>
+        <Media Id='1' Cabinet='content.cab' EmbedCab='yes'/>
+        <UIRef Id="WixUI_Minimal"/>
+        <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+        <Property Id="SYSTEMSTARTOPTIONS">
+            <RegistrySearch Id="SystemStartOptions"
+                Root="HKLM"
+                Key="SYSTEM\CurrentControlSet\Control"
+                Name="SystemStartOptions"
+                Type="raw" />
+        </Property>
+                                                                        
+        <?ifdef env.CERT_PUBLIC_FILENAME?>
+            <?if $(env._BUILDARCH) = AMD64?>
+                <Condition Message="Testsigning must be on for x64 when installing on Vista or newer.">
+                    <![CDATA[(VersionNT < 600) OR (SYSTEMSTARTOPTIONS >< "TESTSIGNING")]]>
+                </Condition>
+            <?endif ?>
+        <?endif ?>
+
+        <Directory Id='TARGETDIR' Name='SourceDir' DiskId='1'>
+            <Merge Id='vmmXenWindowsPvdrivers' Language='1033' SourceFile='components/vmm-xen-windows-pvdrivers-$(var.MODULE_SUFFIX).msm'/>
+            <Merge Id='coreAgentWindows' Language='1033' SourceFile='components/core-agent-windows-$(var.MODULE_SUFFIX).msm'/>
+            <Merge Id='guiAgentWindows' Language='1033' SourceFile='components/gui-agent-windows-$(var.MODULE_SUFFIX).msm'/>
+        </Directory>
+
+        <Feature Id='Complete' Level='1' AllowAdvertise='no' Absent='disallow'>
+            <MergeRef Id='vmmXenWindowsPvdrivers'/>
+            <MergeRef Id='coreAgentWindows'/>
+            <MergeRef Id='guiAgentWindows'/>
+        </Feature>
+    </Product>
+</Wix>
