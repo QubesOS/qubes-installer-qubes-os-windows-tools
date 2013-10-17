@@ -30,7 +30,7 @@
             Compressed='yes'
             SummaryCodepage='1252'/>
         <Media Id='1' Cabinet='content.cab' EmbedCab='yes'/>
-        <UIRef Id="WixUI_Minimal"/>
+        <UIRef Id="WixUI_Mondo"/>
         <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
         <Property Id="SYSTEMSTARTOPTIONS">
             <RegistrySearch Id="SystemStartOptions"
@@ -74,12 +74,26 @@
           </Directory>
         </Directory>
 
-        <Feature Id='Complete' Level='1' AllowAdvertise='no' Absent='disallow'>
-            <MergeRef Id='vmmXenWindowsPvdrivers'/>
-            <MergeRef Id='coreAgentWindows'/>
-            <MergeRef Id='guiAgentWindows'/>
+        <Feature Id='complete' Level='1' AllowAdvertise='no' Absent='disallow'
+            Title="Qubes OS Windows Tools" Description="Qubes OS Windows Tools"
+            ConfigurableDirectory="INSTALLDIR">
             <ComponentRef Id='QubesRegInstallDir'/>
-            <ComponentRef Id="disableUAC"/>
+            <Feature Id="vmmXenWindowsPvdrivers" Level='1' AllowAdvertise='no' Absent='disallow'
+                Title="Xen GPL PV Drivers" Description="Paravirtualization driver for Xen VM.">
+                <MergeRef Id='vmmXenWindowsPvdrivers'/>
+            </Feature>
+            <Feature Id="coreAgentWindows" Level='1' AllowAdvertise='no' Absent='disallow'
+                Title="Core Windows Agent" Description="Core services of Qubes OS Windows Tools. Contains Qubes RPC Agent and basic services like file copy, clipboard handling, etc.">
+                <MergeRef Id='coreAgentWindows'/>
+            </Feature>
+            <Feature Id="guiAgentWindows" Level='1' AllowAdvertise='no' Absent='allow'
+                Title="GUI Windows Agent" Description="Windows Agent for seamless GUI integration.">
+                <MergeRef Id='guiAgentWindows'/>
+            </Feature>
+            <Feature Id="disableUAC" Level="1" AllowAdvertise='no' Absent='allow'
+                Title="Disable UAC" Description="Disable User Account Control. Currently it isn't working with GUI integration (UAC confirmation dialog isn't clickable).">
+                <ComponentRef Id="disableUAC"/>
+            </Feature>
         </Feature>
     </Product>
 </Wix>
