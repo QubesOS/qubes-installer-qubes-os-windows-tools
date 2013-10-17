@@ -1,6 +1,8 @@
 rem @ECHO OFF
 
-FOR /F %%V IN (version) DO SET VERSION=%%V
+FOR /F %%V IN (version) DO SET VERSION_BASE=%%V
+FOR /F %%V IN (build) DO SET BUILD=%%V
+SET VERSION=%VERSION_BASE%.%BUILD%
 
 IF "%_BUILDARCH%"=="x86" (SET DIFXLIB="%WIX%\bin\difxapp_x86.wixlib") ELSE (SET DIFXLIB="%WIX%\bin\difxapp_x64.wixlib")
 
