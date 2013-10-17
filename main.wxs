@@ -64,6 +64,11 @@
                         <RegistryValue Type='string' Name='InstallDir' Value='[INSTALLDIR]'/>
                     </RegistryKey>
                 </Component>
+                <Component Id='disableUAC'>
+                    <RegistryKey Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'>
+                        <RegistryValue Type='integer' Name='EnableLUA' Value='0'/>
+                    </RegistryKey>
+                </Component>
               </Directory>
             </Directory>
           </Directory>
@@ -74,6 +79,7 @@
             <MergeRef Id='coreAgentWindows'/>
             <MergeRef Id='guiAgentWindows'/>
             <ComponentRef Id='QubesRegInstallDir'/>
+            <ComponentRef Id="disableUAC"/>
         </Feature>
     </Product>
 </Wix>
