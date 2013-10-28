@@ -14,12 +14,12 @@
     <?endif ?>
 
     <Product
-        Id='{C5A39AF6-A22B-4DD6-9498-5852B119A2A0}'
+        Id='*'
         Name='Qubes Windows Tools'
         UpgradeCode='{24EE536D-8A0F-4669-8630-67B185065769}'
         Language='1033'
         Codepage='1252'
-        Version='1.0.0'
+        Version='$(env.VERSION)'
         Manufacturer='Invisible Things Lab'>
         <Package
             Id='*'
@@ -30,6 +30,7 @@
             Compressed='yes'
             SummaryCodepage='1252'/>
         <Media Id='1' Cabinet='content.cab' EmbedCab='yes'/>
+        <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
         <UIRef Id="WixUI_Mondo"/>
         <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
         <Property Id="SYSTEMSTARTOPTIONS">
@@ -39,7 +40,7 @@
                 Name="SystemStartOptions"
                 Type="raw" />
         </Property>
-                                                                        
+
         <?ifdef env.CERT_PUBLIC_FILENAME?>
             <?if $(env._BUILDARCH) = AMD64?>
                 <Condition Message="Testsigning must be on for x64 when installing on Vista or newer.">
