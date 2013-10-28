@@ -74,7 +74,7 @@
           </Directory>
         </Directory>
 
-        <Feature Id='complete' Level='1' AllowAdvertise='no' Absent='disallow'
+        <Feature Id='complete' Level='1' AllowAdvertise='no' Absent='disallow' Display='expand'
             Title="Qubes OS Windows Tools" Description="Qubes OS Windows Tools"
             ConfigurableDirectory="INSTALLDIR">
             <ComponentRef Id='QubesRegInstallDir'/>
@@ -82,7 +82,7 @@
                 Title="Xen GPL PV Drivers" Description="Paravirtualization driver for Xen VM.">
                 <MergeRef Id='vmmXenWindowsPvdrivers'/>
             </Feature>
-            <Feature Id="coreAgentWindows" Level='1' AllowAdvertise='no' Absent='disallow'
+            <Feature Id="coreAgentWindows" Level='1' AllowAdvertise='no' Absent='allow'
                 Title="Core Windows Agent" Description="Core services of Qubes OS Windows Tools. Contains Qubes RPC Agent and basic services like file copy, clipboard handling, etc.">
                 <MergeRef Id='coreAgentWindows'/>
             </Feature>
