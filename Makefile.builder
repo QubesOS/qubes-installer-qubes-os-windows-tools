@@ -12,7 +12,7 @@ copy-components:
 	mkdir -p $(CHROOT_DIR)/$(DIST_SRC)/components
 	cp $(SRC_DIR)/*/*.msm $(CHROOT_DIR)/$(DIST_SRC)/components/
 	mkdir -p $(CHROOT_DIR)/$(DIST_SRC)/new-versions
-	for c in $(COMPONENTS); do \
+	for c in $(filter-out installer-qubes-os-windows-tools, $(COMPONENTS)); do \
 		cp $(SRC_DIR)/$$c/version \
 			$(CHROOT_DIR)/$(DIST_SRC)/new-versions/version-$$c 2>/dev/null; \
 	done
