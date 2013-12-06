@@ -31,6 +31,14 @@
             SummaryCodepage='1252'/>
         <Media Id='1' Cabinet='content.cab' EmbedCab='yes'/>
         <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
+        <!-- xen gpl pv drivers R2-beta2 -->
+        <Upgrade Id='{4EDE5DEC-3208-4a1e-8E52-DAC44F7D7062}'>
+            <UpgradeVersion Maximum="0.11.0.20004" IncludeMaximum="yes" Property="OLDDRIVERSFOUND"/>
+        </Upgrade>
+        <!-- core-agent-windows R2-beta2 -->
+        <Upgrade Id='{0853bd66-91d5-449c-8450-64af366e42a5}'>
+            <UpgradeVersion Maximum="1.0.1" IncludeMaximum="yes" Property="OLDAGENTFOUND"/>
+        </Upgrade>
         <UIRef Id="WixUI_Mondo"/>
         <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
         <Property Id="SYSTEMSTARTOPTIONS">
