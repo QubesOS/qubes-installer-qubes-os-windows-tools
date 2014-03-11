@@ -78,6 +78,12 @@
                         <RegistryValue Type='integer' Name='EnableLUA' Value='0'/>
                     </RegistryKey>
                 </Component>
+                <Component Id='thinFrames'>
+                    <RegistryKey Root='HKCU' Key='Control Panel\Desktop\WindowMetrics'>
+                        <RegistryValue Type='string' Name='BorderWidth' Value='0'/>
+                        <RegistryValue Type='string' Name='PaddedBorderWidth' Value='0'/>
+                    </RegistryKey>
+                </Component>
               </Directory>
             </Directory>
           </Directory>
@@ -102,6 +108,10 @@
             <Feature Id="disableUAC" Level="1" AllowAdvertise='no' Absent='allow'
                 Title="Disable UAC" Description="Disable User Account Control. Currently it isn't working with GUI integration (UAC confirmation dialog isn't clickable).">
                 <ComponentRef Id="disableUAC"/>
+            </Feature>
+            <Feature Id="thinFrames" Level="1" AllowAdvertise='no' Absent='allow'
+                Title="Thin window borders" Description="Set default window border width to 0 for better seamless Qubes GUI experience.">
+                <ComponentRef Id="thinFrames"/>
             </Feature>
         </Feature>
     </Product>
