@@ -61,6 +61,11 @@
           <Directory Id='$(var.PFILESDIR)'>
             <Directory Id='ITLProgramFilesDir' Name='Invisible Things Lab'>
               <Directory Id='INSTALLDIR' Name='Qubes OS Windows Tools'>
+                <Directory Id='LogDir' Name='log'>
+                  <Component Id='CreateLogDir' Guid='{61BC344A-BD13-4886-8DF8-007C40B2F31C}'>
+                    <CreateFolder/>
+                  </Component>
+                </Directory>
                 <Merge Id='vmmXenWindowsPvdrivers' Language='1033' SourceFile='components/vmm-xen-windows-pvdrivers-$(var.MODULE_SUFFIX).msm'/>
                 <Merge Id='coreAgentWindows' Language='1033' SourceFile='components/core-agent-windows-$(var.MODULE_SUFFIX).msm'>
                   <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
@@ -94,6 +99,7 @@
             Title="Qubes OS Windows Tools" Description="Qubes OS Windows Tools"
             ConfigurableDirectory="INSTALLDIR">
             <ComponentRef Id='QubesRegInstallDir'/>
+            <ComponentRef Id='CreateLogDir'/>
             <Feature Id="vmmXenWindowsPvdrivers" Level='1' AllowAdvertise='no' Absent='disallow'
                 Title="Xen GPL PV Drivers" Description="Paravirtualization driver for Xen VM.">
                 <MergeRef Id='vmmXenWindowsPvdrivers'/>
