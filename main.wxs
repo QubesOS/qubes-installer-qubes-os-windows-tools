@@ -66,6 +66,9 @@
                     <CreateFolder/>
                   </Component>
                 </Directory>
+                <Component Id='SetEnvPath' Guid='{B7482794-5D34-4996-93EF-EF2705399513}'>
+                  <Environment Id='QubesToolsEnv' Action='set' Name='QUBES_TOOLS' Part='all' Permanent='no' System='yes' Value='[INSTALLDIR]' />
+                </Component>
                 <Merge Id='vmmXenWindowsPvdrivers' Language='1033' SourceFile='components/vmm-xen-windows-pvdrivers-$(var.MODULE_SUFFIX).msm'/>
                 <Merge Id='coreAgentWindows' Language='1033' SourceFile='components/core-agent-windows-$(var.MODULE_SUFFIX).msm'>
                   <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
@@ -100,6 +103,7 @@
             ConfigurableDirectory="INSTALLDIR">
             <ComponentRef Id='QubesRegInstallDir'/>
             <ComponentRef Id='CreateLogDir'/>
+            <ComponentRef Id='SetEnvPath'/>
             <Feature Id="vmmXenWindowsPvdrivers" Level='1' AllowAdvertise='no' Absent='disallow'
                 Title="Xen GPL PV Drivers" Description="Paravirtualization driver for Xen VM.">
                 <MergeRef Id='vmmXenWindowsPvdrivers'/>
