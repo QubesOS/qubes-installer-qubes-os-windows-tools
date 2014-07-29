@@ -80,6 +80,7 @@
                     <RegistryKey Root='HKLM' Key='Software\Invisible Things Lab\Qubes Tools'>
                         <RegistryValue Type='string' Name='InstallDir' Value='[INSTALLDIR]'/>
                         <RegistryValue Type='string' Name='LogDir' Value='[INSTALLDIR]\log'/>
+                        <RegistryValue Type='integer' Name='LogLevel' Value='2'/>
                     </RegistryKey>
                 </Component>
                 <Component Id='disableUAC'>
