@@ -73,6 +73,9 @@
                 <Merge Id='coreAgentWindows' Language='1033' SourceFile='components/core-agent-windows-$(var.MODULE_SUFFIX).msm'>
                   <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
                 </Merge>
+                <Merge Id='moveProfiles' Language='1033' SourceFile='components/move-profiles-$(var.MODULE_SUFFIX).msm'>
+                  <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
                 <Merge Id='guiAgentWindows' Language='1033' SourceFile='components/gui-agent-windows-$(var.MODULE_SUFFIX).msm'>
                   <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
                 </Merge>
@@ -114,6 +117,10 @@
             <Feature Id="coreAgentWindows" Level='1' AllowAdvertise='no' Absent='allow'
                 Title="Core Windows Agent" Description="Core services of Qubes OS Windows Tools. Contains Qubes RPC Agent and basic services like file copy, clipboard handling, etc.">
                 <MergeRef Id='coreAgentWindows'/>
+            </Feature>
+            <Feature Id="moveProfiles" Level='1' AllowAdvertise='no' Absent='allow'
+                Title="Move user profiles" Description="Moves user profiles directory (c:\users) to a separate disk (private.img).">
+                <MergeRef Id='moveProfiles'/>
             </Feature>
             <Feature Id="guiAgentWindows" Level='1' AllowAdvertise='no' Absent='allow'
                 Title="GUI Windows Agent" Description="Windows Agent for seamless GUI integration.">
