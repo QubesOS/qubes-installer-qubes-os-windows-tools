@@ -79,6 +79,7 @@
                 <Merge Id='guiAgentWindows' Language='1033' SourceFile='components/gui-agent-windows-$(var.MODULE_SUFFIX).msm'>
                   <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
                 </Merge>
+                <Merge Id='windowsUtils' Language='1033' SourceFile='components/windows-utils-$(var.MODULE_SUFFIX).msm' />
                 <Component Id='QubesRegInstallDir'>
                     <RegistryKey Root='HKLM' Key='Software\Invisible Things Lab\Qubes Tools'>
                         <RegistryValue Type='string' Name='InstallDir' Value='[INSTALLDIR]'/>
@@ -110,6 +111,7 @@
             <ComponentRef Id='QubesRegInstallDir'/>
             <ComponentRef Id='CreateLogDir'/>
             <ComponentRef Id='SetEnvPath'/>
+			<MergeRef Id='windowsUtils'/>
             <Feature Id="vmmXenWindowsPvdrivers" Level='1' AllowAdvertise='no' Absent='disallow'
                 Title="Xen GPL PV Drivers" Description="Paravirtualization driver for Xen VM.">
                 <MergeRef Id='vmmXenWindowsPvdrivers'/>
