@@ -111,7 +111,7 @@
             <ComponentRef Id='QubesRegInstallDir'/>
             <ComponentRef Id='CreateLogDir'/>
             <ComponentRef Id='SetEnvPath'/>
-			<MergeRef Id='windowsUtils'/>
+            <MergeRef Id='windowsUtils'/>
             <Feature Id="vmmXenWindowsPvdrivers" Level='1' AllowAdvertise='no' Absent='disallow'
                 Title="Xen GPL PV Drivers" Description="Paravirtualization driver for Xen VM.">
                 <MergeRef Id='vmmXenWindowsPvdrivers'/>
