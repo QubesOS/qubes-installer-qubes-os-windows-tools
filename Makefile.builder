@@ -6,13 +6,16 @@ ifeq ($(PACKAGE_SET),vm)
 WIN_SOURCE_SUBDIRS := .
 SOURCE_COPY_IN := copy-components
 SOURCE_COPY_OUT := copy-versions-out
+WIN_PREBUILD_CMD := set_version.bat
+WIN_PACKAGE_EXT := msi
 endif
 
 copy-components:
 	mkdir -p $(CHROOT_DIR)/$(DIST_SRC)/components
 	cp $(SRC_DIR)/*/*.msm $(CHROOT_DIR)/$(DIST_SRC)/components/
+	cp $(SRC_DIR)/*/windows/*.msm $(CHROOT_DIR)/$(DIST_SRC)/components/
 	mkdir -p $(CHROOT_DIR)/$(DIST_SRC)/new-versions
-	for c in $(filter-out installer-qubes-os-windows-tools, $(COMPONENTS)); do \
+	for c in $(filter-out installer-qubes-os-windows-tools builder-windows, $(COMPONENTS)); do \
 		cp $(SRC_DIR)/$$c/version \
 			$(CHROOT_DIR)/$(DIST_SRC)/new-versions/version-$$c 2>/dev/null; \
 	done

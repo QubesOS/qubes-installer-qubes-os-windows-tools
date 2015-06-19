@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+
+<?ifdef env.MSIBUILD ?>
+    <?define MODULE_SUFFIX = $(env.MSIOS)$(env.MSIARCH)$(env.MSIBUILD)?>
+<?else?>
+    <?define MODULE_SUFFIX = $(env.MSIOS)$(env.MSIARCH)?>
+<?endif?>
+
+<?if $(env.DDK_ARCH) = x64 ?>
+    <?define PFILESDIR = ProgramFiles64Folder ?>
+<?else?>
+    <?define PFILESDIR = ProgramFilesFolder ?>
+<?endif ?>
+
+<Product
+Id='*'
+Name='Qubes Tools for Windows'
+UpgradeCode='{FB972F47-0D68-43EF-9820-92FDEB51DCD5}'
+Language='1033'
+Codepage='1252'
+Version='$(env.VERSION)'
+Manufacturer='Invisible Things Lab'
+>
+
+<Package
+Id='*'
+Description='Qubes Tools for Windows'
+Manufacturer='Invisible Things Lab'
+InstallerVersion='200'
+Languages='1033'
+Compressed='yes'
+SummaryCodepage='1252'
+/>
+
+<Media Id='1' Cabinet='content.cab' EmbedCab='yes'/>
+<MajorUpgrade AllowSameVersionUpgrades='yes' DowngradeErrorMessage='A later version of [ProductName] is already installed. Setup will now exit.'/>
+
+<UIRef Id='WixUI_Mondo'/>
+<WixVariable Id='WixUILicenseRtf' Value='license.rtf' />
+<Property Id='SYSTEMSTARTOPTIONS'>
+    <RegistrySearch Id='SystemStartOptions'
+        Root='HKLM'
+        Key='SYSTEM\CurrentControlSet\Control'
+        Name='SystemStartOptions'
+        Type='raw'
+    />
+</Property>
+
+<?ifdef env.CERT_PUBLIC_FILENAME?>
+    <?if $(env.DDK_ARCH) = x64?>
+    <Condition Message='Testsigning must be on for x64 when installing on Vista or newer.'>
+        <![CDATA[(VersionNT < 600) OR (SYSTEMSTARTOPTIONS >< "TESTSIGNING")]]>
+    </Condition>
+    <?endif ?>
+<?endif ?>
+
+<Directory Id='TARGETDIR' Name='SourceDir' DiskId='1'>
+    <Directory Id='$(var.PFILESDIR)'>
+        <Directory Id='ITLProgramFilesDir' Name='Invisible Things Lab'>
+            <Directory Id='INSTALLDIR' Name='Qubes Tools'>
+                <Directory Id='LogDir' Name='log'>
+                    <Component Id='CreateLogDir' Guid='{61BC344A-BD13-4886-8DF8-007C40B2F31C}'>
+                        <CreateFolder/>
+                    </Component>
+                </Directory>
+
+                <Component Id='QubesRegistry'>
+                    <RegistryKey Root='HKLM' Key='Software\Invisible Things Lab\Qubes Tools'>
+                        <RegistryValue Type='string' Name='InstallDir' Value='[INSTALLDIR]'/>
+                        <RegistryValue Type='string' Name='LogDir' Value='[INSTALLDIR]\log'/>
+                        <RegistryValue Type='integer' Name='LogLevel' Value='2'/>
+                    </RegistryKey>
+                </Component>
+
+                <Component Id='SetEnvPath' Guid='{B7482794-5D34-4996-93EF-EF2705399513}'>
+                    <Environment Id='QubesToolsEnv' Action='set' Name='QUBES_TOOLS' Part='all' Permanent='no' System='yes' Value='[INSTALLDIR]' />
+                </Component>
+
+                <Merge Id='XenPvDrivers' Language='1033' SourceFile='components/vmm-xen-windows-pvdrivers-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Merge Id='WindowsUtils' Language='1033' SourceFile='components/windows-utils-$(var.MODULE_SUFFIX).msm' />
+                <Merge Id='CoreVchan' Language='1033' SourceFile='components/core-vchan-xen-$(var.MODULE_SUFFIX).msm' />
+
+                <Merge Id='CoreAgent' Language='1033' SourceFile='components/core-agent-windows-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Merge Id='CoreQubesDb' Language='1033' SourceFile='components/core-qubesdb-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Merge Id='GuiAgentWindows' Language='1033' SourceFile='components/gui-agent-windows-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+<!--
+                <Merge Id='moveProfiles' Language='1033' SourceFile='components/move-profiles-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Component Id='disableUAC'>
+                    <RegistryKey Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System'>
+                        <RegistryValue Type='integer' Name='EnableLUA' Value='0'/>
+                    </RegistryKey>
+                </Component>
+-->
+                <!-- Doesn't seem to make a difference...
+                <Component Id='thinFrames'>
+                <RegistryKey Root='HKCU' Key='Control Panel\Desktop\WindowMetrics'>
+                <RegistryValue Type='string' Name='BorderWidth' Value='0'/>
+                <RegistryValue Type='string' Name='PaddedBorderWidth' Value='0'/>
+                </RegistryKey>
+                </Component>
+                -->
+            </Directory>
+        </Directory>
+    </Directory>
+</Directory>
+
+<Feature
+Id='Complete'
+AllowAdvertise='no'
+Absent='disallow'
+Display='expand'
+Title='Qubes Tools for Windows'
+Description='Qubes Tools for Windows'
+ConfigurableDirectory='INSTALLDIR'
+>
+    
+    <Feature
+    Id='Common'
+    AllowAdvertise='no'
+    Absent='disallow'
+    Title='Shared components'
+    Description='Shared libraries for Qubes Tools for Windows.'
+    >
+        <ComponentRef Id='QubesRegistry'/>
+        <ComponentRef Id='CreateLogDir'/>
+        <ComponentRef Id='SetEnvPath'/>
+        <MergeRef Id='WindowsUtils'/>
+        <MergeRef Id='CoreVchan'/>
+        <MergeRef Id='CoreQubesDb'/>
+    </Feature>
+
+    <Feature
+    Id='XenPvDrivers'
+    AllowAdvertise='no'
+    Absent='disallow'
+    Title='Xen PV Drivers'
+    Description='Paravirtualization drivers for Xen.'
+    >
+        <MergeRef Id='XenPvDrivers'/>
+    </Feature>
+        
+    <Feature
+    Id='CoreAgent'
+    AllowAdvertise='no'
+    Absent='allow'
+    Title='Qubes Core Agent'
+    Description='Core services of Qubes Tools for Windows. Contains Qubes RPC Agent and basic services like file copy, clipboard handling, etc.'
+    >
+        <MergeRef Id='CoreAgent'/>
+    </Feature>
+
+    <Feature
+    Id='GuiAgentWindows'
+    AllowAdvertise='no'
+    Absent='allow'
+    Title='Qubes GUI Agent'
+    Description='Windows Agent for seamless GUI integration.'
+    >
+        <MergeRef Id='GuiAgentWindows'/>
+    </Feature>
+
+<!--
+<Feature Id='moveProfiles' Level='1' AllowAdvertise='no' Absent='allow'
+Title='Move user profiles' Description='Moves user profiles directory (c:\users) to a separate disk (private.img).'>
+<MergeRef Id='moveProfiles'/>
+</Feature>
+-->
+<!--
+-->
+<!--
+<Feature Id='disableUAC' Level='1' AllowAdvertise='no' Absent='allow'
+Title='Disable UAC' Description='Disable User Account Control. Currently it isn't working with GUI integration (UAC confirmation dialog isn't clickable).'>
+<ComponentRef Id='disableUAC'/>
+</Feature>
+-->
+<!--
+<Feature Id='thinFrames' Level='1' AllowAdvertise='no' Absent='allow'
+Title='Thin window borders' Description='Set default window border width to 0 for better seamless Qubes GUI experience.'>
+<ComponentRef Id='thinFrames'/>
+</Feature>
+-->
+    </Feature>
+</Product>
+</Wix>
