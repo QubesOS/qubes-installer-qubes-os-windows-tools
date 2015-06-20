@@ -55,6 +55,10 @@ SummaryCodepage='1252'
     <?endif ?>
 <?endif ?>
 
+<Condition Message='[ProductName] is currently only supported on Windows 7 x64.'>
+    <![CDATA[Installed OR (VersionNT = 601)]]>
+</Condition>
+
 <Directory Id='TARGETDIR' Name='SourceDir' DiskId='1'>
     <Directory Id='$(var.PFILESDIR)'>
         <Directory Id='ITLProgramFilesDir' Name='Invisible Things Lab'>
