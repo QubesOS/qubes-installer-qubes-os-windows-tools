@@ -13,6 +13,12 @@
     <?define PFILESDIR = ProgramFilesFolder ?>
 <?endif ?>
 
+<?if $(env.WIN_BUILD_TYPE) = chk ?>
+    <?define DEBUG = Debug ?>
+<?else?>
+    <?define DEBUG = '' ?>
+<?endif ?>
+
 <Product
 Id='*'
 Name='Qubes Tools for Windows'
@@ -27,7 +33,7 @@ Manufacturer='Invisible Things Lab'
 Id='*'
 Description='Qubes Tools for Windows'
 Manufacturer='Invisible Things Lab'
-InstallerVersion='200'
+InstallerVersion='405'
 Languages='1033'
 Compressed='yes'
 SummaryCodepage='1252'
@@ -60,6 +66,7 @@ SummaryCodepage='1252'
 </Condition>
 
 <Directory Id='TARGETDIR' Name='SourceDir' DiskId='1'>
+    <Merge Id='VcRedist' SourceFile='$(env.CommonProgramFiles)\Merge Modules\Microsoft_VC120_$(var.DEBUG)CRT_$(env.DDK_ARCH).msm' Language='0'/>
     <Directory Id='$(var.PFILESDIR)'>
         <Directory Id='ITLProgramFilesDir' Name='Invisible Things Lab'>
             <Directory Id='INSTALLDIR' Name='Qubes Tools'>
@@ -141,6 +148,7 @@ ConfigurableDirectory='INSTALLDIR'
     Title='Shared components'
     Description='Shared libraries for Qubes Tools for Windows.'
     >
+        <MergeRef Id='VcRedist'/>
         <ComponentRef Id='QubesRegistry'/>
         <ComponentRef Id='CreateLogDir'/>
         <ComponentRef Id='SetEnvPath'/>
