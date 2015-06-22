@@ -88,11 +88,28 @@ SummaryCodepage='1252'
                     <Environment Id='QubesToolsEnv' Action='set' Name='QUBES_TOOLS' Part='all' Permanent='no' System='yes' Value='[INSTALLDIR]' />
                 </Component>
 
-                <Merge Id='XenPvDrivers' Language='1033' SourceFile='components/vmm-xen-windows-pvdrivers-$(var.MODULE_SUFFIX).msm'>
+                <Merge Id='XenBus' Language='1033' SourceFile='components/xenbus-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Merge Id='XenIface' Language='1033' SourceFile='components/xeniface-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Merge Id='XenNet' Language='1033' SourceFile='components/xennet-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Merge Id='XenVbd' Language='1033' SourceFile='components/xenvbd-$(var.MODULE_SUFFIX).msm'>
+                    <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
+                </Merge>
+
+                <Merge Id='XenVif' Language='1033' SourceFile='components/xenvif-$(var.MODULE_SUFFIX).msm'>
                     <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
                 </Merge>
 
                 <Merge Id='WindowsUtils' Language='1033' SourceFile='components/windows-utils-$(var.MODULE_SUFFIX).msm' />
+
                 <Merge Id='CoreVchan' Language='1033' SourceFile='components/core-vchan-xen-$(var.MODULE_SUFFIX).msm' />
 
                 <Merge Id='CoreAgent' Language='1033' SourceFile='components/core-agent-windows-$(var.MODULE_SUFFIX).msm'>
@@ -140,7 +157,7 @@ Title='Qubes Tools for Windows'
 Description='Qubes Tools for Windows'
 ConfigurableDirectory='INSTALLDIR'
 >
-    
+
     <Feature
     Id='Common'
     AllowAdvertise='no'
@@ -160,13 +177,43 @@ ConfigurableDirectory='INSTALLDIR'
     <Feature
     Id='XenPvDrivers'
     AllowAdvertise='no'
-    Absent='disallow'
+    Absent='allow'
     Title='Xen PV Drivers'
     Description='Paravirtualization drivers for Xen.'
     >
-        <MergeRef Id='XenPvDrivers'/>
+        <Feature
+        Id='XenBase'
+        AllowAdvertise='no'
+        Absent='disallow'
+        Title='Base Xen PV Drivers'
+        Description='Xen paravirtual bus and interface drivers.'
+        >
+            <MergeRef Id='XenBus'/>
+            <MergeRef Id='XenIface'/>
+        </Feature>
+
+        <Feature
+        Id='XenDisk'
+        AllowAdvertise='no'
+        Absent='allow'
+        Title='Xen PV Disk Drivers'
+        Description='Xen paravirtual disk drivers.'
+        >
+            <MergeRef Id='XenVbd'/>
+        </Feature>
+
+        <Feature
+        Id='XenNetwork'
+        AllowAdvertise='no'
+        Absent='allow'
+        Title='Xen PV Network Drivers'
+        Description='Xen paravirtual network class and device drivers.'
+        >
+            <MergeRef Id='XenVif'/>
+            <MergeRef Id='XenNet'/>
+        </Feature>
     </Feature>
-        
+
     <Feature
     Id='CoreAgent'
     AllowAdvertise='no'
