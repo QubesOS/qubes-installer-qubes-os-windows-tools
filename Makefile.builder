@@ -16,7 +16,7 @@ copy-components:
 	cp $(SRC_DIR)/*/*.msm $(CHROOT_DIR)/$(DIST_SRC)/components/
 	cp $(SRC_DIR)/*/windows/*.msm $(CHROOT_DIR)/$(DIST_SRC)/components/
 	mkdir -p $(CHROOT_DIR)/$(DIST_SRC)/new-versions
-	for c in $(filter-out installer-qubes-os-windows-tools builder-windows, $(COMPONENTS)); do \
+	for c in $(filter-out installer-qubes-os-windows-tools builder-windows builder, $(COMPONENTS)); do \
 		cp $(SRC_DIR)/$$c/version \
 			$(CHROOT_DIR)/$(DIST_SRC)/new-versions/version-$$c 2>/dev/null; \
 	done
