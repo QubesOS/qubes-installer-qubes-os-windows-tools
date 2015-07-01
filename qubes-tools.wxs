@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi' xmlns:iis='http://schemas.microsoft.com/wix/IIsExtension'>
 
 <?ifdef env.MSIBUILD ?>
     <?define MODULE_SUFFIX = $(env.MSIOS)$(env.MSIARCH)$(env.MSIBUILD)?>
@@ -143,10 +143,28 @@ SummaryCodepage='1252'
                 </RegistryKey>
                 </Component>
                 -->
+                <?ifdef env.CERT_PUBLIC_FILENAME?>
+                <Component Id='Cert' Guid='BBCBDD9E-3170-4FAD-9608-E591E4C2BBBE'>
+                  <File Id='xen_pvdrivers_cert' Name='xen_pvdrivers_cert' DiskId='1' Source='$(env.CERT_PUBLIC_FILENAME)' />
+                  <iis:Certificate Id='xen_pvdrivers_cert_root' Name='xen_pvdrivers_cert' Request='no' BinaryKey='xen_pvdrivers_cert' StoreLocation='localMachine' StoreName='root' Overwrite='no' />
+                  <iis:Certificate Id='xen_pvdrivers_cert_trustedPublisher' Name='xen_pvdrivers_cert' Request='no' BinaryKey='xen_pvdrivers_cert' StoreLocation='localMachine' StoreName='trustedPublisher' Overwrite='no' />
+                </Component>
+                <?endif ?>
             </Directory>
         </Directory>
     </Directory>
 </Directory>
+
+<?ifdef env.CERT_PUBLIC_FILENAME?>
+<Binary Id='xen_pvdrivers_cert' SourceFile='$(env.CERT_PUBLIC_FILENAME)' />
+<?endif ?>
+
+<InstallExecuteSequence>
+  <?ifdef env.CERT_PUBLIC_FILENAME?>
+  <Custom Action="InstallCertificates" Before='MsiProcessDrivers' />
+  <?endif ?>
+</InstallExecuteSequence>
+
 
 <Feature
 Id='Complete'
@@ -166,6 +184,7 @@ ConfigurableDirectory='INSTALLDIR'
     Description='Shared libraries for Qubes Tools for Windows.'
     >
         <MergeRef Id='VcRedist'/>
+        <ComponentRef Id='Cert'/>
         <ComponentRef Id='QubesRegistry'/>
         <ComponentRef Id='CreateLogDir'/>
         <ComponentRef Id='SetEnvPath'/>
