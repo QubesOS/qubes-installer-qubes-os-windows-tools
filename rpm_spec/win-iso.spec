@@ -19,7 +19,7 @@ PV Drivers (GPL) and Qubes Windows agent code (proprietary) Windows AppVMs. Bund
 %build
 
 rm -f iso-content/*.msi iso-content/*.exe
-cp qubes-windows-tools-*-%{version}.%{build_number}.msi iso-content/
+cp qubes-tools-*-%{version}.%{build_number}.msi iso-content/
 genisoimage -o qubes-windows-tools-%{version}.%{build_number}.iso -m .gitignore -JR iso-content
 
 
