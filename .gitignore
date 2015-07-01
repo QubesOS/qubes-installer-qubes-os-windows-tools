@@ -1,3 +1,4 @@
 rpm/
 *.msi
 components/
+pkgs/
