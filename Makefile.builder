@@ -3,6 +3,8 @@ RPM_SPEC_FILES := rpm_spec/win-iso.spec
 WINDOWS_IMAGE_EXTRACT_EXTRA := components-versions build
 endif
 ifeq ($(PACKAGE_SET),vm)
+WIN_COMPILER := custom
+WIN_BUILD_CMD := true
 WIN_SOURCE_SUBDIRS := .
 SOURCE_COPY_IN := copy-components
 SOURCE_COPY_OUT := copy-versions-out
