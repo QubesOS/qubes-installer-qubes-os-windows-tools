@@ -8,7 +8,7 @@ SOURCE_COPY_IN := copy-components
 SOURCE_COPY_OUT := copy-versions-out
 WIN_PREBUILD_CMD := set_version.bat
 WIN_PACKAGE_EXT := msi
-WIN_POSTBUILD_CMD := cmd /c %SIGNTOOL% sign /v /f %CERT_FILENAME% %CERT_PASSWORD_FLAG% /t http://timestamp.verisign.com/scripts/timestamp.dll %MSINAME%
+WIN_POSTBUILD_CMD := call $(WINDOWS_SCRIPTS)/sign.bat
 endif
 
 copy-components:
