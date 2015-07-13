@@ -124,8 +124,7 @@ SummaryCodepage='1252'
                     <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
                 </Merge>
 
-<!--
-                <Merge Id='moveProfiles' Language='1033' SourceFile='components/move-profiles-$(var.MODULE_SUFFIX).msm'>
+                <Merge Id='MoveProfiles' Language='1033' SourceFile='components/move-profiles-$(var.MODULE_SUFFIX).msm'>
                     <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
                 </Merge>
 
@@ -134,7 +133,7 @@ SummaryCodepage='1252'
                         <RegistryValue Type='integer' Name='EnableLUA' Value='0'/>
                     </RegistryKey>
                 </Component>
--->
+
                 <!-- Doesn't seem to make a difference...
                 <Component Id='thinFrames'>
                 <RegistryKey Root='HKCU' Key='Control Panel\Desktop\WindowMetrics'>
@@ -244,6 +243,15 @@ ConfigurableDirectory='INSTALLDIR'
     </Feature>
 
     <Feature
+    Id='MoveProfiles'
+    AllowAdvertise='no'
+    Absent='allow'
+    Title='Move user profiles'
+    Description='Moves user profiles directory (c:\Users) to the HVM&amp;s private disk (private.img).'>
+        <MergeRef Id='MoveProfiles'/>
+    </Feature>
+
+    <Feature
     Id='GuiAgentWindows'
     AllowAdvertise='no'
     Absent='allow'
@@ -253,20 +261,6 @@ ConfigurableDirectory='INSTALLDIR'
         <MergeRef Id='GuiAgentWindows'/>
     </Feature>
 
-<!--
-<Feature Id='moveProfiles' Level='1' AllowAdvertise='no' Absent='allow'
-Title='Move user profiles' Description='Moves user profiles directory (c:\users) to a separate disk (private.img).'>
-<MergeRef Id='moveProfiles'/>
-</Feature>
--->
-<!--
--->
-<!--
-<Feature Id='disableUAC' Level='1' AllowAdvertise='no' Absent='allow'
-Title='Disable UAC' Description='Disable User Account Control. Currently it isn't working with GUI integration (UAC confirmation dialog isn't clickable).'>
-<ComponentRef Id='disableUAC'/>
-</Feature>
--->
 <!--
 <Feature Id='thinFrames' Level='1' AllowAdvertise='no' Absent='allow'
 Title='Thin window borders' Description='Set default window border width to 0 for better seamless Qubes GUI experience.'>
