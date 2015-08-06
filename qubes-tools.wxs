@@ -189,7 +189,6 @@ ConfigurableDirectory='INSTALLDIR'
         <ComponentRef Id='SetEnvPath'/>
         <MergeRef Id='WindowsUtils'/>
         <MergeRef Id='CoreVchan'/>
-        <MergeRef Id='CoreQubesDb'/>
     </Feature>
 
     <Feature
@@ -239,6 +238,7 @@ ConfigurableDirectory='INSTALLDIR'
     Title='Qubes Core Agent'
     Description='Core services of Qubes Tools for Windows. Contains Qubes RPC Agent and basic services like file copy, clipboard handling, etc.'
     >
+        <MergeRef Id='CoreQubesDb'/>
         <MergeRef Id='CoreAgent'/>
     </Feature>
 
