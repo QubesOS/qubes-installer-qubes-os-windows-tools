@@ -200,12 +200,14 @@ ConfigurableDirectory='INSTALLDIR'
             <MergeRef Id='XenIface'/>
         </Feature>
 
+        <!-- 1 is default, 3 is typical, 1000 is full. -->
         <Feature
         Id='XenDisk'
         AllowAdvertise='no'
         Absent='allow'
         Title='Xen PV Disk Drivers'
         Description='Xen paravirtual disk drivers.'
+        Level='1001'
         >
             <MergeRef Id='XenVbd'/>
         </Feature>
