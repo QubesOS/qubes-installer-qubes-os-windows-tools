@@ -82,6 +82,11 @@ SummaryCodepage='1252'
                         <RegistryValue Type='string' Name='LogDir' Value='[INSTALLDIR]\log'/>
                         <RegistryValue Type='integer' Name='LogLevel' Value='2'/>
                     </RegistryKey>
+                    <RegistryKey Root='HKLM' Key='SYSTEM\CurrentControlSet\Control\Session Manager\Debug Print Filter'>
+                        <!-- Default debug print filter masks for drivers. Mostly useful to not spam a debugger when testing. 0x3f is all predefined levels. -->
+                        <RegistryValue Type='integer' Name='IHVDRIVER' Value='3'/>
+                        <RegistryValue Type='integer' Name='IHVVIDEO' Value='3'/>
+                    </RegistryKey>
                 </Component>
 
                 <Component Id='SetEnvPath' Guid='{B7482794-5D34-4996-93EF-EF2705399513}'>
