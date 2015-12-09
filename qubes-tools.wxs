@@ -133,6 +133,12 @@ SummaryCodepage='1252'
                     <ConfigurationData Name='ProductFolder' Value='INSTALLDIR'/>
                 </Merge>
 
+                <Component Id='DisableUac'>
+                    <RegistryKey Root='HKLM' Key='Software\Microsoft\Windows\CurrentVersion\Policies\System'>
+                        <RegistryValue Type='integer' Name='EnableLUA' Value='0'/>
+                    </RegistryKey>
+                </Component>
+
                 <?ifdef env.CERT_PUBLIC_FILENAME?>
                 <Component Id='Cert' Guid='BBCBDD9E-3170-4FAD-9608-E591E4C2BBBE'>
                   <File Id='xen_pvdrivers_cert' Name='xen_pvdrivers_cert' DiskId='1' Source='$(env.CERT_PUBLIC_FILENAME)' />
@@ -252,6 +258,16 @@ ConfigurableDirectory='INSTALLDIR'
     Description='Windows Agent for seamless GUI integration.'
     >
         <MergeRef Id='GuiAgentWindows'/>
+    </Feature>
+
+    <Feature
+    Id='DisableUac'
+    AllowAdvertise='no'
+    Absent='allow'
+    Title='Disable UAC'
+    Description='Disable User Account Control.'
+    >
+        <ComponentRef Id='DisableUac'/>
     </Feature>
 
 </Feature>
