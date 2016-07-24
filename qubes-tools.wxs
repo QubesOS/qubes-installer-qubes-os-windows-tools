@@ -40,7 +40,11 @@ SummaryCodepage='1252'
 />
 
 <Media Id='1' Cabinet='content.cab' EmbedCab='yes'/>
-<MajorUpgrade AllowSameVersionUpgrades='yes' DowngradeErrorMessage='A later version of [ProductName] is already installed. Setup will now exit.'/>
+
+<MajorUpgrade
+AllowSameVersionUpgrades='no'
+DowngradeErrorMessage='A later version of [ProductName] is already installed. Setup will now exit.'
+/>
 
 <UIRef Id='WixUI_Mondo'/>
 <WixVariable Id='WixUILicenseRtf' Value='license.rtf' />
