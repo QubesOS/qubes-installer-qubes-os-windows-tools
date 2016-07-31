@@ -3,12 +3,12 @@ RPM_SPEC_FILES := rpm_spec/win-iso.spec
 WINDOWS_IMAGE_EXTRACT_EXTRA := components-versions build
 endif
 ifeq ($(PACKAGE_SET),vm)
-WIN_COMPILER := custom
+WIN_COMPILER := msbuild
 WIN_BUILD_CMD := true
 WIN_SOURCE_SUBDIRS := .
 SOURCE_COPY_IN := copy-components
 SOURCE_COPY_OUT := copy-versions-out
-WIN_PREBUILD_CMD := set_version.bat
+WIN_PREBUILD_CMD = set_version.bat && powershell -executionpolicy bypass set_version.ps1
 WIN_PACKAGE_EXT := msi
 WIN_POSTBUILD_CMD := call $(WINDOWS_SCRIPTS)/sign.bat
 endif

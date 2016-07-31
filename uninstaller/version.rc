@@ -1,0 +1,3 @@
+#define QTW_FILEDESCRIPTION_STR "Qubes Windows Tools uninstaller"
+
+#include "..\version_common.rc"

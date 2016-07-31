@@ -159,14 +159,26 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
 <Binary Id='xen_pvdrivers_cert' SourceFile='$(env.CERT_PUBLIC_FILENAME)' />
 <?endif ?>
 
+<Binary Id='Uninstaller' SourceFile='bin\$(env.DDK_ARCH)\uninstaller.exe' />
+
+<CustomAction
+Id='UninstallCleanup'
+Return='check'
+Impersonate='no'
+Execute='deferred'
+BinaryKey='Uninstaller'
+ExeCommand=''
+/>
+
 <InstallExecuteSequence>
   <?ifdef env.CERT_PUBLIC_FILENAME?>
   <Custom Action="InstallCertificates" Before='MsiProcessDrivers' />
   <?endif ?>
   <!-- Require reboot after uninstall. -->
   <ScheduleReboot Before="InstallFinalize">REMOVE="ALL"</ScheduleReboot>
+  <!-- Perform custom uninstall cleanup, needed for pvdrivers because MSI can't revert system changes done by driver coinstallers (like inserting device stack filters). -->
+  <Custom Action="UninstallCleanup" Before="InstallFinalize">REMOVE="ALL"</Custom>
 </InstallExecuteSequence>
-
 
 <Feature
 Id='Complete'
