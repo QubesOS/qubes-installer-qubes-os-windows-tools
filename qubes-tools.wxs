@@ -163,6 +163,8 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
   <?ifdef env.CERT_PUBLIC_FILENAME?>
   <Custom Action="InstallCertificates" Before='MsiProcessDrivers' />
   <?endif ?>
+  <!-- Require reboot after uninstall. -->
+  <ScheduleReboot Before="InstallFinalize">REMOVE="ALL"</ScheduleReboot>
 </InstallExecuteSequence>
 
 
