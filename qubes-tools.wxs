@@ -46,8 +46,21 @@ AllowSameVersionUpgrades='no'
 DowngradeErrorMessage='A later version of [ProductName] is already installed. Setup will now exit.'
 />
 
-<UIRef Id='WixUI_Mondo'/>
-<WixVariable Id='WixUILicenseRtf' Value='license.rtf' />
+<!-- Skip the license dialog: it's displayed by the bundle, so no need to have it here as well. -->
+<UI>
+  <UIRef Id='WixUI_Mondo'/>
+  <Publish Dialog="WelcomeDlg"
+        Control="Next"
+        Event="NewDialog"
+        Value="CustomizeDlg"
+        Order="2">1</Publish>
+  <Publish Dialog="CustomizeDlg"
+        Control="Back"
+        Event="NewDialog"
+        Value="WelcomeDlg"
+        Order="2">1</Publish>
+</UI>
+
 <Property Id='SYSTEMSTARTOPTIONS'>
     <RegistrySearch Id='SystemStartOptions'
         Root='HKLM'
@@ -70,7 +83,6 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
 </Condition>
 
 <Directory Id='TARGETDIR' Name='SourceDir' DiskId='1'>
-    <Merge Id='VcRedist' SourceFile='$(env.CommonProgramFiles)\Merge Modules\Microsoft_VC120_$(var.DEBUG)CRT_$(env.DDK_ARCH).msm' Language='0'/>
     <Directory Id='$(var.PFILESDIR)'>
         <Directory Id='ITLProgramFilesDir' Name='Invisible Things Lab'>
             <Directory Id='INSTALLDIR' Name='Qubes Tools'>
@@ -150,6 +162,7 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
                   <iis:Certificate Id='xen_pvdrivers_cert_trustedPublisher' Name='xen_pvdrivers_cert' Request='no' BinaryKey='xen_pvdrivers_cert' StoreLocation='localMachine' StoreName='trustedPublisher' Overwrite='no' />
                 </Component>
                 <?endif ?>
+
             </Directory>
         </Directory>
     </Directory>
@@ -197,7 +210,6 @@ ConfigurableDirectory='INSTALLDIR'
     Title='Shared components'
     Description='Shared libraries for Qubes Tools for Windows.'
     >
-        <MergeRef Id='VcRedist'/>
         <ComponentRef Id='Cert'/>
         <ComponentRef Id='QubesRegistry'/>
         <ComponentRef Id='CreateLogDir'/>
