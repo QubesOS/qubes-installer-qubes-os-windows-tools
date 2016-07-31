@@ -21,7 +21,7 @@
 
 <Product
 Id='*'
-Name='Qubes Tools for Windows'
+Name='Qubes Windows Tools'
 UpgradeCode='{FB972F47-0D68-43EF-9820-92FDEB51DCD5}'
 Language='1033'
 Codepage='1252'
@@ -31,7 +31,7 @@ Manufacturer='Invisible Things Lab'
 
 <Package
 Id='*'
-Description='Qubes Tools for Windows'
+Description='Qubes Windows Tools'
 Manufacturer='Invisible Things Lab'
 InstallerVersion='405'
 Languages='1033'
@@ -198,8 +198,8 @@ Id='Complete'
 AllowAdvertise='no'
 Absent='disallow'
 Display='expand'
-Title='Qubes Tools for Windows'
-Description='Qubes Tools for Windows'
+Title='Qubes Windows Tools'
+Description='Qubes Windows Tools'
 ConfigurableDirectory='INSTALLDIR'
 >
 
@@ -208,7 +208,7 @@ ConfigurableDirectory='INSTALLDIR'
     AllowAdvertise='no'
     Absent='disallow'
     Title='Shared components'
-    Description='Shared libraries for Qubes Tools for Windows.'
+    Description='Shared libraries for Qubes Windows Tools.'
     >
         <ComponentRef Id='Cert'/>
         <ComponentRef Id='QubesRegistry'/>
@@ -265,7 +265,7 @@ ConfigurableDirectory='INSTALLDIR'
     AllowAdvertise='no'
     Absent='allow'
     Title='Qubes Core Agent'
-    Description='Core services of Qubes Tools for Windows. Contains Qubes RPC Agent and basic services like file copy, clipboard handling, etc.'
+    Description='Core services of Qubes Windows Tools. Contains Qubes RPC Agent and basic services like file copy, clipboard handling, etc.'
     >
         <MergeRef Id='CoreQubesDb'/>
         <MergeRef Id='CoreAgent'/>
