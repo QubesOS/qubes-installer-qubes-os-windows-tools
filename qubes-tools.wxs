@@ -187,10 +187,17 @@ ExeCommand=''
   <?ifdef env.CERT_PUBLIC_FILENAME?>
   <Custom Action="InstallCertificates" Before='MsiProcessDrivers' />
   <?endif ?>
-  <!-- Require reboot after uninstall. -->
-  <ScheduleReboot Before="InstallFinalize">REMOVE="ALL"</ScheduleReboot>
+
+  <!-- Require reboot after install/uninstall. -->
+  <ScheduleReboot Before="InstallFinalize" />
+
   <!-- Perform custom uninstall cleanup, needed for pvdrivers because MSI can't revert system changes done by driver coinstallers (like inserting device stack filters). -->
-  <Custom Action="UninstallCleanup" Before="InstallFinalize">REMOVE="ALL"</Custom>
+  <Custom Action="UninstallCleanup" After="InstallInitialize">WIX_UPGRADE_DETECTED</Custom>
+
+  <!-- Force reboot immediately after uninstalling previous version on upgrade,
+  it's normally suppressed until after the new version is installed.
+  Do not reboot if we're already running after reboot. -->
+  <ForceReboot After="UninstallCleanup">WIX_UPGRADE_DETECTED AND NOT AFTERREBOOT</ForceReboot>
 </InstallExecuteSequence>
 
 <Feature
