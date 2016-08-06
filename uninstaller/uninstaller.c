@@ -28,7 +28,7 @@
  * We should not depend on QWT libraries because they are already uninstalled at this point.
  */
 
-PWSTR serviceNames[] = { L"qvideo", L"xen", L"xenagent", L"xenbus", L"xenfilt", L"xeniface", L"xennet", L"xenvif", L"xendisk", L"xenvbd" };
+PWSTR serviceNames[] = { L"qvideo", L"xen", L"xenagent", L"xenlite", L"xenbus", L"xenfilt", L"xeniface", L"xennet", L"xenvif", L"xendisk", L"xenvbd" };
 
 int wmain(int argc, WCHAR *argv[])
 {
