@@ -183,6 +183,21 @@ BinaryKey='Uninstaller'
 ExeCommand=''
 />
 
+<!-- This is here instead of in the qrexec module because on upgrade we need to run this
+before the qrexec module is processed by MSI (restart after old version uninstall happens first). -->
+<!-- 0 is the argument for advertising that tools are not installed. -->
+<CustomAction
+Id="UnadvertiseTools"
+Property="AdvToolsPath"
+Return="ignore"
+Execute="immediate"
+Impersonate="yes"
+ExeCommand="0"
+/>
+
+<!-- Make sure INSTALLDIR is initialized when this runs. -->
+<SetProperty Id='AdvToolsPath' Value='[INSTALLDIR]bin\advertise-tools.exe' After='CostFinalize' />
+
 <InstallExecuteSequence>
   <?ifdef env.CERT_PUBLIC_FILENAME?>
   <Custom Action="InstallCertificates" Before='MsiProcessDrivers' />
@@ -190,6 +205,10 @@ ExeCommand=''
 
   <!-- Require reboot after install/uninstall. -->
   <ScheduleReboot Before="InstallFinalize" />
+
+  <!-- Notify dom0 that tools are uninstalled on uninstall/upgrade
+  (upgrade requires an intermediate reboot and the tools are not functioning yet then). -->
+  <Custom Action='UnadvertiseTools' Before='RemoveExistingProducts'>REMOVE="ALL" OR WIX_UPGRADE_DETECTED</Custom>
 
   <!-- Perform custom uninstall cleanup, needed for pvdrivers because MSI can't revert system changes done by driver coinstallers (like inserting device stack filters). -->
   <Custom Action="UninstallCleanup" After="InstallInitialize">WIX_UPGRADE_DETECTED</Custom>
