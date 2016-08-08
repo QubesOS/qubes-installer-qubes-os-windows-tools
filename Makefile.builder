@@ -27,6 +27,8 @@ copy-components:
 		echo $$[ `cat $(ORIG_SRC)/build` + 1 ] > $(CHROOT_DIR)/$(DIST_SRC)/build; \
 	fi
 
+	cp $(BUILDER_REPO_DIR)/core-agent-windows/libs/advertise-tools.exe $(CHROOT_DIR)/$(DIST_SRC)
+
 copy-versions-out:
 	@echo "    components-versions"
 	@rm -fr $(ORIG_SRC)/components-versions

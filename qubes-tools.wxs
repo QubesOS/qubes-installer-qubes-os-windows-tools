@@ -173,6 +173,7 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
 <?endif ?>
 
 <Binary Id='Uninstaller' SourceFile='bin\$(env.DDK_ARCH)\uninstaller.exe' />
+<Binary Id='advertise_tools.exe' SourceFile='advertise-tools.exe' />
 
 <CustomAction
 Id='UninstallCleanup'
@@ -187,16 +188,13 @@ ExeCommand=''
 before the qrexec module is processed by MSI (restart after old version uninstall happens first). -->
 <!-- 0 is the argument for advertising that tools are not installed. -->
 <CustomAction
-Id="UnadvertiseTools"
-Property="AdvToolsPath"
-Return="ignore"
-Execute="immediate"
-Impersonate="yes"
-ExeCommand="0"
+Id='UnadvertiseTools'
+BinaryKey='advertise_tools.exe'
+Return='ignore'
+Execute='immediate'
+Impersonate='yes'
+ExeCommand='0'
 />
-
-<!-- Make sure INSTALLDIR is initialized when this runs. -->
-<SetProperty Id='AdvToolsPath' Value='[INSTALLDIR]bin\advertise-tools.exe' After='CostFinalize' />
 
 <InstallExecuteSequence>
   <?ifdef env.CERT_PUBLIC_FILENAME?>
