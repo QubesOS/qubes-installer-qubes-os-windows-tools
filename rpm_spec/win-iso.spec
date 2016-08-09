@@ -19,7 +19,7 @@ PV Drivers and Qubes Tools for Windows AppVMs. Bundled for Windows 7 64bit.
 %build
 
 rm -f iso-content/*.msi iso-content/*.exe
-cp qubes-tools-*-%{version}.%{build_number}.msi iso-content/
+cp qubes-tools-*-%{version}.%{build_number}.exe iso-content/
 genisoimage -o qubes-windows-tools-%{version}.%{build_number}.iso -m .gitignore -JR iso-content
 
 
