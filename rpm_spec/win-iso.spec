@@ -5,16 +5,16 @@
 Name:	    qubes-windows-tools
 Version:	%{version}
 Release:	%{build_number}
-Summary:	PV Drivers for Windows VMs
+Summary:	Qubes Tools for Windows VMs
 Group:		Qubes
-License:    GPL/Proprietary
+License:    GPL
 Obsoletes:  qubes-core-dom0-pvdrivers
 BuildRequires: genisoimage
 
 %define _builddir %(pwd)
 
 %description
-PV Drivers (GPL) and Qubes Windows agent code (proprietary) Windows AppVMs. Bundled for XP, Vista, 2003, 7, both 32bit and 64bit.
+PV Drivers and Qubes Tools for Windows AppVMs. Bundled for Windows 7 64bit.
 
 %build
 
