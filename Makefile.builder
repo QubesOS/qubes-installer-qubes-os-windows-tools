@@ -10,7 +10,7 @@ SOURCE_COPY_IN := copy-components
 SOURCE_COPY_OUT := copy-versions-out
 WIN_PREBUILD_CMD = set_version.bat && powershell -executionpolicy bypass set_version.ps1
 WIN_PACKAGE_EXT := msi
-WIN_POSTBUILD_CMD := call $(WINDOWS_SCRIPTS)/sign.bat
+WIN_POSTBUILD_CMD := del advertise-tools.exe && call $(WINDOWS_SCRIPTS)/sign.bat
 endif
 
 copy-components:
