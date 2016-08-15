@@ -1,5 +1,6 @@
 rpm/
 *.msi
+*.exe
 components/
 pkgs/
 bin/
