@@ -155,6 +155,12 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
                     </RegistryKey>
                 </Component>
 
+                <Directory Id='BinDir' Name='bin'>
+                    <Component Id='PowerSettings'>
+                        <File Id='power_settings.bat' Source='power_settings.bat' KeyPath='yes'/>
+                    </Component>
+                </Directory>
+
                 <?ifdef env.CERT_PUBLIC_FILENAME?>
                 <Component Id='Cert' Guid='BBCBDD9E-3170-4FAD-9608-E591E4C2BBBE'>
                   <File Id='xen_pvdrivers_cert' Name='xen_pvdrivers_cert' DiskId='1' Source='$(env.CERT_PUBLIC_FILENAME)' />
@@ -182,6 +188,21 @@ Impersonate='no'
 Execute='deferred'
 BinaryKey='Uninstaller'
 ExeCommand=''
+/>
+
+<Property Id="CMD">
+  <DirectorySearch Id="SysDir" Path="[SystemFolder]" Depth="1">
+    <FileSearch Id="CmdExe" Name="cmd.exe"  />
+  </DirectorySearch>
+</Property>
+
+<CustomAction
+Id='SetPowerSettings'
+Return='ignore'
+Impersonate='no'
+Execute='deferred'
+Property='CMD'
+ExeCommand='/c "[BinDir]\power_settings.bat"'
 />
 
 <!-- This is here instead of in the qrexec module because on upgrade we need to run this
@@ -215,6 +236,9 @@ ExeCommand='0'
   it's normally suppressed until after the new version is installed.
   Do not reboot if we're already running after reboot. -->
   <ForceReboot After="UninstallCleanup">WIX_UPGRADE_DETECTED AND NOT AFTERREBOOT</ForceReboot>
+
+  <!-- Run power settings update if the feature is being installed. -->
+  <Custom Action='SetPowerSettings' Before='InstallFinalize'><![CDATA[&PowerSettings=3]]></Custom>
 </InstallExecuteSequence>
 
 <Feature
@@ -322,6 +346,16 @@ ConfigurableDirectory='INSTALLDIR'
     Description='Disable User Account Control.'
     >
         <ComponentRef Id='DisableUac'/>
+    </Feature>
+
+    <Feature
+    Id='PowerSettings'
+    AllowAdvertise='no'
+    Absent='allow'
+    Title='Update Windows power settings'
+    Description='Sets the active Windows power scheme to High Performance and disables automatic sleep/hibernation.'
+    >
+        <ComponentRef Id='PowerSettings'/>
     </Feature>
 
 </Feature>
