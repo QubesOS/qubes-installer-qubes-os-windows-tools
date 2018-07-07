@@ -25,7 +25,7 @@ IconSourceFile='qubes.ico'
     <Chain>
         <!-- VC redistributable package. Marked permanent so it's not uninstalled with QWT. -->
         <ExePackage
-        SourceFile='$(env.VS_PATH)\VC\redist\1033\vcredist_x64.exe'
+        SourceFile='$(env.VS_PATH)\VC\Redist\MSVC\14.14.26405\vcredist_x64.exe'
         InstallCommand='/install /quiet'
         RepairCommand='/repair /quiet'
         PerMachine='yes'
