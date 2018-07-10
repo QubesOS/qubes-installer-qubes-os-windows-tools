@@ -91,9 +91,6 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
                         <RegistryValue Type='integer' Name='IHVDRIVER' Value='3'/>
                         <RegistryValue Type='integer' Name='IHVVIDEO' Value='3'/>
                     </RegistryKey>
-                </Component>
-
-                <Component Id='SetEnvPath' Guid='{B7482794-5D34-4996-93EF-EF2705399513}'>
                     <Environment Id='QubesToolsEnv' Action='set' Name='QUBES_TOOLS' Part='all' Permanent='no' System='yes' Value='[INSTALLDIR]' />
                 </Component>
 
@@ -248,7 +245,6 @@ ConfigurableDirectory='INSTALLDIR'
     >
         <ComponentRef Id='QubesRegistry'/>
         <ComponentRef Id='CreateLogDir'/>
-        <ComponentRef Id='SetEnvPath'/>
         <MergeRef Id='WindowsUtils'/>
         <MergeRef Id='CoreVchan'/>
     </Feature>
