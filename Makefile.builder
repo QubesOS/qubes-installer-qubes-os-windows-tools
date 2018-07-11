@@ -1,6 +1,7 @@
+NO_ARCHIVE = 1
 ifeq ($(PACKAGE_SET),dom0)
 RPM_SPEC_FILES := rpm_spec/win-iso.spec
-WINDOWS_IMAGE_EXTRACT_EXTRA := components-versions build
+WINDOWS_IMAGE_EXTRACT_EXTRA := components-versions rel
 endif
 ifeq ($(PACKAGE_SET),vm)
 WIN_COMPILER := msbuild
@@ -25,7 +26,7 @@ copy-components:
 	done
 	if ! diff -qr $(CHROOT_DIR)/$(DIST_SRC)/components-versions \
 	              $(CHROOT_DIR)/$(DIST_SRC)/new-versions; then \
-		echo $$[ `cat $(ORIG_SRC)/build` + 1 ] > $(CHROOT_DIR)/$(DIST_SRC)/build; \
+		echo $$[ `cat $(ORIG_SRC)/rel` + 1 ] > $(CHROOT_DIR)/$(DIST_SRC)/rel; \
 	fi
 
 	cp $(BUILDER_REPO_DIR)/core-agent-windows/libs/advertise-tools.exe $(CHROOT_DIR)/$(DIST_SRC)
@@ -34,5 +35,5 @@ copy-versions-out:
 	@echo "    components-versions"
 	@rm -fr $(ORIG_SRC)/components-versions
 	@cp -r $(CHROOT_DIR)/$(DIST_SRC)/new-versions $(ORIG_SRC)/components-versions
-	@echo "    build"
-	@cp --remove-destination $(CHROOT_DIR)/$(DIST_SRC)/build $(ORIG_SRC)/
+	@echo "    rel"
+	@cp --remove-destination $(CHROOT_DIR)/$(DIST_SRC)/rel $(ORIG_SRC)/
