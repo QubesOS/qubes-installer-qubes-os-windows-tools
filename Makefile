@@ -9,3 +9,8 @@ $(OUTDIR):
 
 $(OUTDIR)/uninstaller.exe: uninstaller/uninstaller.c
 	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
+
+rename-msi:
+	for msi in qubes-tools-combined-*.msi; do \
+		mv "$$msi" "qubes-tools-$${msi#qubes-tools-combined-}"; \
+	done

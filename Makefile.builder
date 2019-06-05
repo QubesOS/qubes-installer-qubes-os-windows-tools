@@ -15,7 +15,10 @@ WIN_PACKAGE_EXT := msi
 WIN_POSTBUILD_CMD := del advertise-tools.exe && call $(WINDOWS_SCRIPTS)/sign.bat
 WIN_BUILD_DEPS := vmm-xen-windows-pvdrivers core-vchan-xen core-qubesdb windows-utils core-agent-windows gui-common gui-agent-windows
 WIN_OUTPUT_BIN := bin
-WIN_CROSS_POSTBUILD_CMD := rm -f advertise-tools.exe
+WIN_WIX_SOURCES := qubes-tools.wxs
+WIN_WIX_BUNDLES := qubes-tools.wxb
+WIN_CROSS_WIX_SOURCES := qubes-tools-combined.wxs
+WIN_CROSS_POSTBUILD_CMD := make rename-msi && rm -f advertise-tools.exe
 endif
 
 copy-components:
