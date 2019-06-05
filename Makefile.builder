@@ -13,6 +13,9 @@ SOURCE_COPY_OUT := copy-versions-out
 WIN_PREBUILD_CMD = set_version.bat && powershell -executionpolicy bypass -File set_version.ps1 < nul
 WIN_PACKAGE_EXT := msi
 WIN_POSTBUILD_CMD := del advertise-tools.exe && call $(WINDOWS_SCRIPTS)/sign.bat
+WIN_BUILD_DEPS := vmm-xen-windows-pvdrivers core-vchan-xen core-qubesdb windows-utils core-agent-windows gui-common gui-agent-windows
+WIN_OUTPUT_BIN := bin
+WIN_CROSS_POSTBUILD_CMD := rm -f advertise-tools.exe
 endif
 
 copy-components:
@@ -20,7 +23,7 @@ copy-components:
 	cp $(SRC_DIR)/*/*.msm $(CHROOT_DIR)/$(DIST_SRC)/components/
 	cp $(SRC_DIR)/*/windows/*.msm $(CHROOT_DIR)/$(DIST_SRC)/components/
 	mkdir -p $(CHROOT_DIR)/$(DIST_SRC)/new-versions
-	for c in $(filter-out installer-qubes-os-windows-tools builder-windows builder, $(COMPONENTS)); do \
+	for c in $(WIN_BUILD_DEPS); do \
 		cp $(SRC_DIR)/$$c/version \
 			$(CHROOT_DIR)/$(DIST_SRC)/new-versions/version-$$c 2>/dev/null; \
 	done
@@ -29,7 +32,7 @@ copy-components:
 		echo $$[ `cat $(ORIG_SRC)/rel` + 1 ] > $(CHROOT_DIR)/$(DIST_SRC)/rel; \
 	fi
 
-	cp $(BUILDER_REPO_DIR)/core-agent-windows/libs/advertise-tools.exe $(CHROOT_DIR)/$(DIST_SRC)
+	cp $(BUILDER_REPO_DIR)/core-agent-windows/lib/advertise-tools.exe $(CHROOT_DIR)/$(DIST_SRC)
 
 copy-versions-out:
 	@echo "    components-versions"
