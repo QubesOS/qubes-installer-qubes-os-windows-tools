@@ -19,7 +19,8 @@
  *
  */
 
-#include <Windows.h>
+#include <windows.h>
+#include <winreg.h>
 
 /* 
  * This utility performs post-uninstallation cleanup of Qubes Windows Tools.
