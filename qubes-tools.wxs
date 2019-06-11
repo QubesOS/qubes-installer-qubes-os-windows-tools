@@ -121,7 +121,7 @@ DowngradeErrorMessage='A later version of [ProductName] is already installed. Se
 <Binary Id='xen_pvdrivers_cert' SourceFile='$(env.CERT_PUBLIC_FILENAME)' />
 <?endif ?>
 
-<Binary Id='Uninstaller' SourceFile='bin\$(env.DDK_ARCH)\uninstaller.exe' />
+<Binary Id='Uninstaller' SourceFile='$(env.QUBES_BIN)\uninstaller.exe' />
 <Binary Id='advertise_tools.exe' SourceFile='advertise-tools.exe' />
 
 <CustomAction
