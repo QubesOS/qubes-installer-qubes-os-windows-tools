@@ -322,7 +322,9 @@ ConfigurableDirectory='INSTALLDIR'
             <!-- Windows 8+ not supported yet -->
             <![CDATA[(VersionNT >= 602) OR NOT (SYSTEMSTARTOPTIONS >< "TESTSIGNING")]]>
         </Condition>
+        <?ifdef env.CERT_PUBLIC_FILENAME?>
         <ComponentRef Id='Cert'/>
+        <?endif ?>
         <MergeRef Id='GuiAgentWindows'/>
     </Feature>
 
