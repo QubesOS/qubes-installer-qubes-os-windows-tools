@@ -12,6 +12,7 @@ powercfg /setacvalueindex SCHEME_MIN SUB_SLEEP STANDBYIDLE 0
 powercfg /setdcvalueindex SCHEME_MIN SUB_SLEEP STANDBYIDLE 0
 powercfg /setacvalueindex SCHEME_MIN SUB_SLEEP HIBERNATEIDLE 0
 powercfg /setdcvalueindex SCHEME_MIN SUB_SLEEP HIBERNATEIDLE 0
+powercfg -H off
 
 :: Disable idle video poweroff
 powercfg /setacvalueindex SCHEME_MIN SUB_VIDEO VIDEOIDLE 0
