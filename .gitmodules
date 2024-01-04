@@ -1,0 +1,4 @@
+[submodule "qubes-vmm-xen-windows-pvdrivers"]
+	path = qubes-vmm-xen-windows-pvdrivers
+	url = https://github.com/omeg/qubes-vmm-xen-windows-pvdrivers
+	branch = omeg/win10

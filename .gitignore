@@ -1,12 +1,4 @@
-rpm/
+/**/.vs
 *.msi
 *.exe
-components/
-pkgs/
-bin/
-*.sdf
-*.suo
-vs*/x64
-vs*/*/x64
-vs*/*/Debug
-vs*/*/Release
+/bin/
