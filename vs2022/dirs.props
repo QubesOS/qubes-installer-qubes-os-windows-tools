@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Include/lib paths for all projects -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <QUBES_INCLUDES>$(SolutionDir)\..\qubes-vmm-xen-windows-pvdrivers\include;$(SolutionDir)\..\qubes-vmm-xen-windows-pvdrivers\xeniface\include;$(SolutionDir)\..\qubes-core-vchan-xen\windows\include;$(SolutionDir)\..\qubes-windows-utils\include;$(SolutionDir)\..\qubes-core-qubesdb\include;$(SolutionDir)\..\qubes-gui-common\include</QUBES_INCLUDES>
+    <QUBES_LIBS>$(SolutionDir)\..\bin;$(SolutionDir)\..\bin\xeniface</QUBES_LIBS>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="QUBES_INCLUDES">
+      <Value>$(QUBES_INCLUDES)</Value>
+    </BuildMacro>
+    <BuildMacro Include="QUBES_LIBS">
+      <Value>$(QUBES_LIBS)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
