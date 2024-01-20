@@ -8,11 +8,11 @@ Visual Studio solution includes relevant projects from submodules and allows bui
 - TODO: clean build fails on pvdrivers, retry succeeds - investigate
 - TODO: actual installer
 - TODO: integrate with Qubes builder
-- TODO: signing pvdrivers
-- TODO: cmdline build of VS installer project
+- TODO: support release signing
 
 ## Command-line build
 
 `build.cmd` script builds the solution from command line using the EWDK (no need for external VS installation).
+A selfsigned test certificate (`testsign.cer`) is generated and used to sign all executables, DLLs and drivers.
 
 Usage: `build.cmd Release|Debug`

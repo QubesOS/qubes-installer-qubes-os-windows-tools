@@ -45,4 +45,9 @@ set EWDK_INCLUDE=%EWDK_INCLUDE:"=%
 set EWDK_LIB="%EWDK_PATH%\Program Files\Windows Kits\10\Lib\%Version_Number%\um\x64;%EWDK_PATH%\Program Files\Windows Kits\10\Lib\%Version_Number%\ucrt\x64"
 set EWDK_LIB=%EWDK_LIB:"=%
 
+:: build everything
 %MSBUILD% %SOLUTION% -t:Rebuild -p:Platform=x64 -p:Configuration=%CONFIGURATION%
+
+:: generate a selfsigned cert and sign everything
+:: TODO: support release certs
+powershell "%~dp0\sign.ps1" "%~dp0\bin"
