@@ -5,7 +5,6 @@ Visual Studio solution includes relevant projects from submodules and allows bui
 
 `EWDK_PATH` env variable must be set to the root of MS Enterprise WDK for Windows 10/Visual Studio 2022.
 
-- TODO: clean build fails on pvdrivers, retry succeeds - investigate
 - TODO: actual installer
 - TODO: integrate with Qubes builder
 - TODO: support release signing
