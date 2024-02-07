@@ -3,3 +3,5 @@
 *.exe
 /bin/
 /testsign.cer
+/qubes-windows-tools.exe
+/qubes-windows-tools.wixpdb

@@ -1,0 +1,32 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+  <Package
+    Name="Qubes Windows Tools"
+    Manufacturer="Invisible Things Lab"
+    Version="1.0.0.0"
+    UpgradeCode="08f56372-de01-4500-bc5a-69a34c54289c"
+    Scope="perMachine">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="icon.ico" SourceFile="..\..\qubes.ico" />
+    <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+    
+    <!-- TODO Launch Condition="MsiNTProductType = 1 AND VersionNT64 = 1000" Message="!(loc.UnsupportedOsError)" /-->
+
+    <WixVariable Id="WixUILicenseRtf" Value="..\..\LICENSE.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="..\..\qubes.png" />
+    <ui:WixUI Id="WixUI_FeatureTree" />
+
+    <Binary Id="SigningCert" SourceFile="..\..\testsign.cer" />
+
+    <Feature
+      Id="Core"
+      AllowAbsent="no"
+      AllowAdvertise="no"
+      Title="!(loc.FeatureCoreTitle)"
+      Description="!(loc.FeatureCoreDescription)">
+      <ComponentGroupRef Id="CoreComponents" />
+    </Feature>
+  </Package>
+</Wix>

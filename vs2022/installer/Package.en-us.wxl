@@ -1,0 +1,21 @@
+﻿<!--
+This file contains the declaration of all the localizable strings.
+-->
+<WixLocalization xmlns="http://wixtoolset.org/schemas/v4/wxl" Culture="en-US">
+
+  <String Id="DowngradeError" Value="A newer version of [ProductName] is already installed." />
+  <String Id="UnsupportedOsError" Value="Only Windows 10 is supported "/>
+
+  <String Id="QdbServiceName" Value="QubesDB daemon" />
+  <String Id="QdbServiceDescription" Value="Qubes configuration database agent" />
+  <String Id="QrexecServiceName" Value="Qubes RPC agent" />
+  <String Id="QrexecServiceDescription" Value="Qubes RPC agent" />
+
+  <String Id="SendToCopyToVm" Value="Copy to other qube" />
+  <String Id="SendToEditInVm" Value="Edit in other qube" />
+  <String Id="SendToEditInDispVm" Value="Edit in disposable qube" />
+
+  <String Id="FeatureCoreTitle" Value="Required files and services" />
+  <String Id="FeatureCoreDescription" Value="Xen paravirtual bus and interface drivers, Qubes configuration database service and RPC agent with necessary utilities and libraries." />
+
+</WixLocalization>

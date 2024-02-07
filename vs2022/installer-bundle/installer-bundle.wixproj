@@ -1,0 +1,27 @@
+﻿<Project Sdk="WixToolset.Sdk/4.0.3">
+  <PropertyGroup>
+    <OutputType>Bundle</OutputType>
+    <OutputName>qubes-windows-tools</OutputName>
+    <Platforms>x64</Platforms>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>..\..</OutputPath>
+    <CabinetCachePath>..\tmp\installer-bundle\cab-cache</CabinetCachePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>..\..</OutputPath>
+    <CabinetCachePath>..\tmp\installer-bundle\cab-cache</CabinetCachePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\installer\installer.wixproj" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(SolutionDir)\..\" />
+  </Target>
+</Project>

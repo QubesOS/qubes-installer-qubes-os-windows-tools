@@ -1,0 +1,28 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+  <Bundle Name="Qubes Windows Tools" Manufacturer="Invisible Things Lab" Version="1.0.0.0" UpgradeCode="00d4b3a0-f71d-4ec6-a969-4ee7954000f9">
+
+    <BootstrapperApplication>
+      <bal:WixInternalUIBootstrapperApplication
+        LogoFile="..\..\qubes-logo.png">
+      </bal:WixInternalUIBootstrapperApplication>
+    </BootstrapperApplication>
+
+    <!-- Make sure the installer (MSI) project name doesn't contain dashes,
+      because then the preprocessor variable below referencing it fails to be defined. -->
+    <Chain>
+      <ExePackage
+        Id="VcRedist"
+        Vital="yes"
+        SourceFile="..\vc_redist.x64.exe"
+        Permanent="yes"
+        bal:PrereqPackage="yes"
+        bal:PrereqLicenseUrl="https://visualstudio.microsoft.com/license-terms/vs2022-cruntime/"
+        InstallArguments="/quiet" />
+      <MsiPackage
+        Id="MainPackage"
+        Vital="yes"
+        SourceFile="$(installer.TargetPath)" />
+    </Chain>
+
+  </Bundle>
+</Wix>

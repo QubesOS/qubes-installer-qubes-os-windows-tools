@@ -4,12 +4,12 @@
 
 if ($env:EWDK_PATH -eq $null) {
     Write-Error "EWDK_PATH variable not set"
-    break
+    exit 1
 }
 
 if ($env:Version_Number -eq $null) {
     Write-Error "EWDK environment not initialized"
-    break
+    exit 1
 }
 
 $bins = "$PSScriptRoot\bin"
@@ -17,7 +17,15 @@ if ($args[0] -ne $null) {
     $bins = $args[0]
 }
 
-$cert_path = "testsign.cer"
+$cert_path = "$PSScriptRoot\testsign.cer" # TODO: allow changing this
+
+# do nothing if the cert exists (signing requires a complete rebuild since the cert is ephemeral)
+if (Test-Path $cert_path) {
+    Write-Warning "$cert_path already exists, skipping sign"
+    # TODO: fail if binaries are not signed (incomplete previous build)
+    exit 0
+}
+
 $cn = "Invisible Things Lab"
 $ts_url = "http://timestamp.digicert.com"
 $end_date = (Get-Date).AddYears(5)

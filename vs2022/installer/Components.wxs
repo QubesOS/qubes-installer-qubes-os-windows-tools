@@ -1,0 +1,204 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:difxapp="http://wixtoolset.org/schemas/v4/wxs/difxapp" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
+  <?define BIN_SRC="..\..\bin" ?>
+  <?define SERVICES_SRC="..\..\qubes-core-agent-windows\src\qubes-rpc-services" ?>
+
+  <Fragment>
+    <ComponentGroup Id="CoreComponents">
+      <Component
+        Guid="{C138FD59-B498-4EB7-B596-D9BB376A1E6B}"
+        Id="SigningCert"
+        Directory="PVDRIVERS_DIR">
+        <iis:Certificate
+          Name="ITLCert"
+          BinaryRef="SigningCert"
+          Request="no"
+          StoreLocation="localMachine"
+          StoreName="root"
+          Vital="yes"
+          />
+      </Component>
+
+      <Component
+        Guid="{5C76C716-340B-491E-BF58-28F1A07B122F}"
+        Id="xenbus"
+        Directory="PVDRIVERS_DIR"
+        Subdirectory="xenbus">
+        <File Source="$(var.BIN_SRC)\xenbus\xen.sys" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus.cat" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus.inf" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus.sys" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.dll" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.exe" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenfilt.sys" />
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" />
+      </Component>
+
+      <Component
+        Guid="{47088CD9-52BD-4853-B331-AC008C6C3F17}"
+        Id="xeniface"
+        Directory="PVDRIVERS_DIR"
+        Subdirectory="xeniface">
+        <File Source="$(var.BIN_SRC)\xeniface\xenagent.dll "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xenagent.exe "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xencontrol.dll "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xeniface.cat "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xeniface.inf "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xeniface.sys "/>
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" />
+      </Component>
+
+      <Component
+        Guid="{D8203722-9A7C-4866-BA07-62AB6AE08B2E}"
+        Id="SharedDlls"
+        Directory="System64Folder">
+        <File Source="$(var.BIN_SRC)\libvchan.dll "/>
+        <File Source="$(var.BIN_SRC)\libxenvchan.dll "/>
+        <File Source="$(var.BIN_SRC)\qubesdb-client.dll "/>
+        <File Source="$(var.BIN_SRC)\windows-utils.dll "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xencontrol.dll "/>
+      </Component>
+
+      <Component
+        Guid="{C824195C-F828-4FF5-BFCA-3143F0D89916}"
+        Id="SystemSettings"
+        Directory="System64Folder">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <RegistryValue Name="InstallDir" Type="string" Value="[INSTALL_DIR]" />
+          <RegistryValue Name="LogDir" Type="string" Value="[INSTALL_DIR]log" />
+          <RegistryValue Name="LogLevel" Type="integer" Value="5" /> <!-- TODO allow customization -->
+        </RegistryKey>
+        
+        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\Session Manager\Debug Print Filter">
+          <RegistryValue Name="IHVDRIVER" Type="integer" Value="3" />
+        </RegistryKey>
+
+        <Environment
+          Id="QubesToolsEnv"
+          Action="set"
+          Name="QUBES_TOOLS"
+          Part="all"
+          Permanent="no"
+          System="yes"
+          Value='[INSTALL_DIR]' />
+      </Component>
+
+      <Component
+        Guid="{A8D779C4-66BA-4E52-9510-EFBB6D4D7734}"
+        Id="QubesDB"
+        Directory="BIN_DIR">
+        <File Source="$(var.BIN_SRC)\qubesdb-cmd.exe" />
+        <File Source="$(var.BIN_SRC)\qubesdb-daemon.exe" KeyPath="yes" />
+        <ServiceInstall
+          Name="QdbDaemon"
+          DisplayName="!(loc.QdbServiceName)"
+          Description="!(loc.QdbServiceDescription)"
+          Account="LocalSystem"
+          Type="ownProcess"
+          Start="auto"
+          ErrorControl="ignore"
+          Interactive="no"
+          Arguments="0">
+          <ServiceDependency Id="xenagent"/>
+        </ServiceInstall>
+        <ServiceControl Name="QdbDaemon" Start="install" Stop="uninstall" Remove="uninstall" Wait="yes" />
+      </Component>
+
+      <Component
+        Guid="{EE28BD55-FA59-43FB-9250-66C1C168A4EE}"
+        Id="QrexecAgent"
+        Directory="BIN_DIR">
+
+        <File Source="$(var.BIN_SRC)\qrexec-agent.exe" KeyPath="yes" />
+
+        <ServiceInstall
+          Name="QrexecAgent"
+          DisplayName="!(loc.QrexecServiceName)"
+          Description="!(loc.QrexecServiceDescription)"
+          Account="LocalSystem"
+          Type="ownProcess"
+          Start="auto"
+          ErrorControl="ignore"
+          Interactive="no">
+          <ServiceDependency Id="QdbDaemon"/>
+        </ServiceInstall>
+
+        <ServiceControl Name="QrexecAgent" Start="install" Stop="uninstall" Remove="uninstall" Wait="yes" />
+      </Component>
+
+      <Component
+        Guid="{2873F585-AABD-4443-8FC6-CBDD90A6D3B0}"
+        Id="QrexecSupport"
+        Directory="BIN_DIR">
+
+        <!-- This needs to be separate from QrexecAgent because here qrexec-client-vm needs to be
+             the keypath (so it's the target for shortcuts). -->
+        <File Source="$(var.BIN_SRC)\advertise-tools.exe" />
+        <File Source="$(var.BIN_SRC)\ask-vm-and-run.exe" />
+        <File Source="$(var.BIN_SRC)\qrexec-client-vm.exe" KeyPath="yes" >
+          <!-- TODO: these shortcuts are only installed for the current user.
+             It seems impossible to do for all users in the installer. -->
+          <Shortcut
+            Name="!(loc.SendToCopyToVm)"
+            Advertise="yes"
+            Directory="SendToFolder"
+            Arguments="@default|qubes.Filecopy|[RPC_HANDLERS_DIR]\file-sender.exe" />
+          <Shortcut
+            Name="!(loc.SendToEditInVm)"
+            Advertise="yes"
+            Directory="SendToFolder"
+            Arguments="@default|qubes.OpenInVM|[RPC_HANDLERS_DIR]\open-in-vm.exe"
+            Show="minimized" />
+          <Shortcut
+            Name="!(loc.SendToEditInDispVm)"
+            Advertise="yes"
+            Directory="SendToFolder"
+            Arguments="@dispvm|qubes.OpenInVM|[RPC_HANDLERS_DIR]\open-in-vm.exe"
+            Show="minimized" />
+        </File>
+        <File Source="$(var.BIN_SRC)\qrexec-wrapper.exe" />
+
+      </Component>
+
+        <Component
+        Guid="{FCD05E1D-E07E-4500-950F-2098C7D7EFD7}"
+        Id="QrexecServiceDefinitions"
+        Directory="RPC_DEFINITIONS_DIR">
+
+        <File Source="$(var.SERVICES_SRC)\qubes.ClipboardCopy" />
+        <File Source="$(var.SERVICES_SRC)\qubes.ClipboardPaste" />
+        <File Source="$(var.SERVICES_SRC)\qubes.Filecopy" />
+        <File Source="$(var.SERVICES_SRC)\qubes.GetAppMenus" />
+        <File Source="$(var.SERVICES_SRC)\qubes.GetImageRGBA" />
+        <File Source="$(var.SERVICES_SRC)\qubes.OpenInVM" />
+        <File Source="$(var.SERVICES_SRC)\qubes.OpenURL" />
+        <File Source="$(var.SERVICES_SRC)\qubes.SetDateTime" />
+        <File Source="$(var.SERVICES_SRC)\qubes.SetGuiMode" />
+        <File Source="$(var.SERVICES_SRC)\qubes.StartApp" />
+        <File Source="$(var.SERVICES_SRC)\qubes.SuspendPostAll" />
+        <File Source="$(var.SERVICES_SRC)\qubes.VMShell" />
+        <File Source="$(var.SERVICES_SRC)\qubes.WaitForSession" />
+      </Component>
+
+      <Component
+        Guid="{D1987297-F924-4678-989B-8B0CAEEB1CCF}"
+        Id="QrexecServiceHandlers"
+        Directory="RPC_HANDLERS_DIR">
+        <File Source="$(var.BIN_SRC)\clipboard-copy.exe" />
+        <File Source="$(var.BIN_SRC)\clipboard-paste.exe" />
+        <File Source="$(var.BIN_SRC)\file-receiver.exe" />
+        <File Source="$(var.BIN_SRC)\file-sender.exe" />
+        <File Source="$(var.BIN_SRC)\get-image-rgba.exe" />
+        <File Source="$(var.BIN_SRC)\open-in-vm.exe" />
+        <File Source="$(var.BIN_SRC)\open-url.exe" />
+        <File Source="$(var.BIN_SRC)\set-gui-mode.exe" />
+        <File Source="$(var.BIN_SRC)\vm-file-editor.exe" />
+        <File Source="$(var.BIN_SRC)\wait-for-logon.exe" />
+        <File Source="$(var.SERVICES_SRC)\get-appmenus.ps1" />
+        <File Source="$(var.SERVICES_SRC)\set-time.ps1" />
+        <File Source="$(var.SERVICES_SRC)\start-app.ps1" />
+        <File Source="$(var.SERVICES_SRC)\update-time.bat" />
+
+      </Component>
+      </ComponentGroup>
+  </Fragment>
+</Wix>

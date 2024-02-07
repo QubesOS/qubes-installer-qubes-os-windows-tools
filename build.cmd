@@ -48,6 +48,4 @@ set EWDK_LIB=%EWDK_LIB:"=%
 :: build everything
 %MSBUILD% %SOLUTION% -t:Rebuild -p:Platform=x64 -p:Configuration=%CONFIGURATION%
 
-:: generate a selfsigned cert and sign everything
-:: TODO: support release certs
-powershell "%~dp0\sign.ps1" "%~dp0\bin"
+:: signing is done in the installer project

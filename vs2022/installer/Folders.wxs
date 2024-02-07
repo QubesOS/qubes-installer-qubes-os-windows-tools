@@ -1,0 +1,17 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <StandardDirectory Id="TARGETDIR">
+      <Directory Id="INSTALL_DIR" Name="Qubes Tools">
+        <Directory Id="BIN_DIR" Name="bin">
+          <Directory Id="PVDRIVERS_DIR" Name="pvdrivers" />
+        </Directory>
+        <Directory Id="RPC_DEFINITIONS_DIR" Name="qubes-rpc" />
+        <Directory Id="RPC_HANDLERS_DIR" Name="qubes-rpc-services" />
+        <Directory Id="LOG_DIR" Name="log">
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+    <StandardDirectory Id="SendToFolder" />
+    <StandardDirectory Id="System64Folder" />
+  </Fragment>
+</Wix>

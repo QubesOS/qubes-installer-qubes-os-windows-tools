@@ -1,0 +1,30 @@
+﻿<Project Sdk="WixToolset.Sdk/4.0.3">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>..\x64\Debug</OutputPath>
+    <IntermediateOutputPath>..\tmp\installer</IntermediateOutputPath>
+    <Platforms>x64</Platforms>
+    <CabinetCachePath>..\tmp\installer\cab-cache</CabinetCachePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>..\x64\Release</OutputPath>
+    <IntermediateOutputPath>..\tmp\installer</IntermediateOutputPath>
+    <CabinetCachePath>..\tmp\installer\cab-cache</CabinetCachePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <!-- This target signs all dependent binaries before building the installer.
+       Normal prebuild action doesn't work properly (if building outside VS,
+       prebuild can be executed before all dependent projects are built). -->
+  <Target Name="CustomBeforeBuild" AfterTargets="AfterResolveReferences">
+    <Exec Command="call &quot;%EWDK_PATH%\BuildEnv\SetupBuildEnv.cmd&quot; x86_amd64 &amp;&amp; powershell -executionpolicy bypass $(SolutionDir)\..\sign.ps1" />
+  </Target>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.3" />
+    <PackageReference Include="WixToolset.DifxApp.wixext" Version="4.0.3" />
+    <PackageReference Include="WixToolset.Iis.wixext" Version="4.0.3" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
+  </ItemGroup>
+</Project>
