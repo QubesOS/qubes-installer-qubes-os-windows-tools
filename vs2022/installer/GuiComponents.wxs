@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <?define BIN_SRC="..\..\bin" ?>
+
+  <Fragment>
+    <ComponentGroup Id="GuiComponents">
+      <Component
+        Guid="{C0730EC0-18E6-4CBA-B8A5-A9254F91E41B}"
+        Id="GuiSettings"
+        Directory="System64Folder">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <!-- agent-specific log value, verbose causes too much slowdown -->
+          <!-- TODO: remove after polishing/bugfixing -->
+          <RegistryValue Name="LogLevel" Key="gui-agent" Type="integer" Value="4" />
+          <RegistryValue Name="GuiAgentPath" Type="string" Value="[INSTALL_DIR]bin\gui-agent.exe" />
+          <RegistryValue Name="SeamlessMode" Type="integer" Value="0" /> <!-- TODO enable after polishing -->
+          <RegistryValue Name="DisableCursor" Type="integer" Value="1" />
+        </RegistryKey>
+      </Component>
+
+      <Component
+        Guid="{3BF00311-889D-44EE-824A-1AD42AF60393}"
+        Id="GuiAgent"
+        Directory="BIN_DIR">
+        <File Source="$(var.BIN_SRC)\gui-agent.exe" />
+        <File Source="$(var.BIN_SRC)\gui-watchdog.exe" KeyPath="yes" />
+        <ServiceInstall
+          Name="QubesGuiWatchdog"
+          DisplayName="!(loc.GuiServiceName)"
+          Description="!(loc.GuiServiceDescription)"
+          Account="LocalSystem"
+          Type="ownProcess"
+          Start="auto"
+          ErrorControl="ignore"
+          Interactive="no">
+          <ServiceDependency Id="QrexecAgent"/>
+        </ServiceInstall>
+        <ServiceControl Name="QubesGuiWatchdog" Start="install" Stop="uninstall" Remove="uninstall" Wait="yes" />
+      </Component>
+
+    </ComponentGroup>
+  </Fragment>
+</Wix>

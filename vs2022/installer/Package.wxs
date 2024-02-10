@@ -28,5 +28,13 @@
       Description="!(loc.FeatureCoreDescription)">
       <ComponentGroupRef Id="CoreComponents" />
     </Feature>
+    <Feature
+      Id="Gui"
+      AllowAbsent="yes"
+      AllowAdvertise="no"
+      Title="!(loc.FeatureGuiTitle)"
+      Description="!(loc.FeatureGuiDescription)">
+      <ComponentGroupRef Id="GuiComponents" />
+    </Feature>
   </Package>
 </Wix>

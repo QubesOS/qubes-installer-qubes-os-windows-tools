@@ -10,6 +10,8 @@ This file contains the declaration of all the localizable strings.
   <String Id="QdbServiceDescription" Value="Qubes configuration database agent" />
   <String Id="QrexecServiceName" Value="Qubes RPC agent" />
   <String Id="QrexecServiceDescription" Value="Qubes RPC agent" />
+  <String Id="GuiServiceName" Value="Qubes GUI agent watchdog" />
+  <String Id="GuiServiceDescription" Value="Qubes GUI agent watchdog" />
 
   <String Id="SendToCopyToVm" Value="Copy to other qube" />
   <String Id="SendToEditInVm" Value="Edit in other qube" />
@@ -17,5 +19,7 @@ This file contains the declaration of all the localizable strings.
 
   <String Id="FeatureCoreTitle" Value="Required files and services" />
   <String Id="FeatureCoreDescription" Value="Xen paravirtual bus and interface drivers, Qubes configuration database service and RPC agent with necessary utilities and libraries." />
+  <String Id="FeatureGuiTitle" Value="GUI agent (EXPERIMENTAL)" />
+  <String Id="FeatureGuiDescription" Value="GUI agent for seamless integration." />
 
 </WixLocalization>
