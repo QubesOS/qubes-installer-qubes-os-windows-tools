@@ -18,7 +18,7 @@
       <ExePackage
         Id="VcRedist"
         Vital="yes"
-        SourceFile="..\vc_redist.x64.exe"
+        SourceFile="$(env.EWDK_PATH)\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Redist\MSVC\v143\vc_redist.x64.exe"
         Permanent="yes"
         bal:PrereqPackage="yes"
         bal:PrereqLicenseUrl="https://visualstudio.microsoft.com/license-terms/vs2022-cruntime/"
