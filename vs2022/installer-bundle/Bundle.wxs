@@ -1,5 +1,10 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
-  <Bundle Name="Qubes Windows Tools" Manufacturer="Invisible Things Lab" Version="1.0.0.0" UpgradeCode="00d4b3a0-f71d-4ec6-a969-4ee7954000f9">
+  <Bundle
+    Name="Qubes Windows Tools"
+    Manufacturer="Invisible Things Lab"
+    IconSourceFile="..\..\qubes.ico"
+    Version="1.0.0.0"
+    UpgradeCode="00d4b3a0-f71d-4ec6-a969-4ee7954000f9">
 
     <BootstrapperApplication>
       <bal:WixInternalUIBootstrapperApplication
