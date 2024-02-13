@@ -22,6 +22,9 @@
     <Exec Command="call &quot;%EWDK_PATH%\BuildEnv\SetupBuildEnv.cmd&quot; x86_amd64 &amp;&amp; powershell -executionpolicy bypass $(SolutionDir)\..\sign.ps1" />
   </Target>
   <ItemGroup>
+    <Content Include="Common.wxi" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.3" />
     <PackageReference Include="WixToolset.DifxApp.wixext" Version="4.0.3" />
     <PackageReference Include="WixToolset.Iis.wixext" Version="4.0.3" />

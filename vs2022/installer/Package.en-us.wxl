@@ -21,5 +21,7 @@ This file contains the declaration of all the localizable strings.
   <String Id="FeatureCoreDescription" Value="Xen paravirtual bus and interface drivers, Qubes configuration database service and RPC agent with necessary utilities and libraries." />
   <String Id="FeatureGuiTitle" Value="GUI agent (EXPERIMENTAL)" />
   <String Id="FeatureGuiDescription" Value="GUI agent for seamless integration." />
+  <String Id="FeaturePvDriversTitle" Value="Xen PV disk and network drivers" />
+  <String Id="FeaturePvDriversDescription" Value="Xen paravirtual disk and network drivers for increased performance." />
 
 </WixLocalization>

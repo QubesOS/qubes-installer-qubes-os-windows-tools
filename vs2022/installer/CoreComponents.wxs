@@ -1,6 +1,5 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:difxapp="http://wixtoolset.org/schemas/v4/wxs/difxapp" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
-  <?define BIN_SRC="..\..\bin" ?>
-  <?define SERVICES_SRC="..\..\qubes-core-agent-windows\src\qubes-rpc-services" ?>
+  <?include Common.wxi ?>
 
   <Fragment>
     <ComponentGroup Id="CoreComponents">
@@ -30,7 +29,7 @@
         <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.dll" />
         <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.exe" />
         <File Source="$(var.BIN_SRC)\xenbus\xenfilt.sys" />
-        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" />
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="1" />
       </Component>
 
       <Component
@@ -44,7 +43,7 @@
         <File Source="$(var.BIN_SRC)\xeniface\xeniface.cat "/>
         <File Source="$(var.BIN_SRC)\xeniface\xeniface.inf "/>
         <File Source="$(var.BIN_SRC)\xeniface\xeniface.sys "/>
-        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" />
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="2" />
       </Component>
 
       <Component

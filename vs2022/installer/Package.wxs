@@ -19,6 +19,19 @@
     <ui:WixUI Id="WixUI_FeatureTree" />
 
     <Binary Id="SigningCert" SourceFile="..\..\testsign.cer" />
+    <Binary Id="InstallHelper" SourceFile="..\..\bin\install-helper.exe" />
+
+    <CustomAction
+      Id="RunInstallHelper"
+      Execute="deferred"
+      Impersonate="no"
+      BinaryRef="InstallHelper"
+      ExeCommand=""
+      Return="asyncNoWait" />
+
+    <InstallExecuteSequence>
+      <Custom Action="RunInstallHelper" Before="InstallFiles" />
+    </InstallExecuteSequence>
 
     <Feature
       Id="Core"
@@ -28,6 +41,7 @@
       Description="!(loc.FeatureCoreDescription)">
       <ComponentGroupRef Id="CoreComponents" />
     </Feature>
+
     <Feature
       Id="Gui"
       AllowAbsent="yes"
@@ -35,6 +49,15 @@
       Title="!(loc.FeatureGuiTitle)"
       Description="!(loc.FeatureGuiDescription)">
       <ComponentGroupRef Id="GuiComponents" />
+    </Feature>
+
+    <Feature
+      Id="PvDrivers"
+      AllowAbsent="yes"
+      AllowAdvertise="no"
+      Title="!(loc.FeaturePvDriversTitle)"
+      Description="!(loc.FeaturePvDriversDescription)">
+      <ComponentGroupRef Id="PvDriversComponents" />
     </Feature>
   </Package>
 </Wix>
