@@ -46,6 +46,6 @@ set EWDK_LIB="%EWDK_PATH%\Program Files\Windows Kits\10\Lib\%Version_Number%\um\
 set EWDK_LIB=%EWDK_LIB:"=%
 
 :: build everything
-%MSBUILD% %SOLUTION% -t:Rebuild -p:Platform=x64 -p:Configuration=%CONFIGURATION%
+%MSBUILD% %SOLUTION% -restore -t:Rebuild -p:Platform=x64 -p:Configuration=%CONFIGURATION%
 
 :: signing is done in the installer project
