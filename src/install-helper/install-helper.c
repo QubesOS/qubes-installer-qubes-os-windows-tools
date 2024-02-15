@@ -30,47 +30,47 @@
 
 int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
-	SC_HANDLE scm = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
-	if (!scm)
-	{
-		return 1;
-	}
+    SC_HANDLE scm = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+    if (!scm)
+    {
+        return 1;
+    }
 
-	int ret = 0;
-	while (TRUE)
-	{
-		SC_HANDLE xm = OpenService(scm, L"xenbus_monitor", SC_MANAGER_ALL_ACCESS);
-		if (!xm)
-		{
-			Sleep(10);
-			continue;
-		}
+    int ret = 0;
+    while (TRUE)
+    {
+        SC_HANDLE xm = OpenService(scm, L"xenbus_monitor", SC_MANAGER_ALL_ACCESS);
+        if (!xm)
+        {
+            Sleep(10);
+            continue;
+        }
 
-		SERVICE_STATUS status;
-		if (!QueryServiceStatus(xm, &status))
-		{
-			CloseServiceHandle(xm);
-			Sleep(10);
-			continue;
-		}
+        SERVICE_STATUS status;
+        if (!QueryServiceStatus(xm, &status))
+        {
+            CloseServiceHandle(xm);
+            Sleep(10);
+            continue;
+        }
 
-		if (status.dwCurrentState != SERVICE_RUNNING)
-		{
-			CloseServiceHandle(xm);
-			Sleep(10);
-			continue;
-		}
+        if (status.dwCurrentState != SERVICE_RUNNING)
+        {
+            CloseServiceHandle(xm);
+            Sleep(10);
+            continue;
+        }
 
-		// service ready and running, stop it and exit
-		if (!ControlService(xm, SERVICE_CONTROL_STOP, &status))
-		{
-			ret = 1;
-		}
+        // service ready and running, stop it and exit
+        if (!ControlService(xm, SERVICE_CONTROL_STOP, &status))
+        {
+            ret = 1;
+        }
 
-		CloseServiceHandle(xm);
-		break;
-	}
+        CloseServiceHandle(xm);
+        break;
+    }
 
-	CloseServiceHandle(scm);
-	return ret;
+    CloseServiceHandle(scm);
+    return ret;
 }
