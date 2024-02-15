@@ -220,6 +220,8 @@ Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "installer-bundle", "install
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "install-helper", "install-helper\install-helper.vcxproj", "{A649FE89-8EE3-4293-B846-69E35F36E1F5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dump-windows", "..\qubes-gui-agent-windows\vs2022\dump-windows\dump-windows.vcxproj", "{A6473190-2539-46C8-8B3A-E3F649365ADE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -350,6 +352,10 @@ Global
 		{A649FE89-8EE3-4293-B846-69E35F36E1F5}.Debug|x64.Build.0 = Debug|x64
 		{A649FE89-8EE3-4293-B846-69E35F36E1F5}.Release|x64.ActiveCfg = Release|x64
 		{A649FE89-8EE3-4293-B846-69E35F36E1F5}.Release|x64.Build.0 = Release|x64
+		{A6473190-2539-46C8-8B3A-E3F649365ADE}.Debug|x64.ActiveCfg = Debug|x64
+		{A6473190-2539-46C8-8B3A-E3F649365ADE}.Debug|x64.Build.0 = Debug|x64
+		{A6473190-2539-46C8-8B3A-E3F649365ADE}.Release|x64.ActiveCfg = Release|x64
+		{A6473190-2539-46C8-8B3A-E3F649365ADE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -382,6 +388,7 @@ Global
 		{F7A9C9CD-BCD2-45F7-A241-414429B81A9D} = {011435C7-D648-4B59-B0B0-C1553823AE62}
 		{2CAD426C-FEE2-41F4-88C0-DCF14B59EA9E} = {F63D8E0D-4CA1-4009-9A94-92E48EFD8730}
 		{9CA9D9C3-6989-40CF-8E22-AF09E3DE87DC} = {F63D8E0D-4CA1-4009-9A94-92E48EFD8730}
+		{A6473190-2539-46C8-8B3A-E3F649365ADE} = {F63D8E0D-4CA1-4009-9A94-92E48EFD8730}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAA8D5AA-FB07-4D46-A201-1A4181E2E82C}
