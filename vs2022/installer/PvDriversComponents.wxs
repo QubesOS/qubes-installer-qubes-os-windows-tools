@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:difxapp="http://wixtoolset.org/schemas/v4/wxs/difxapp">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:difxapp="http://wixtoolset.org/schemas/v4/wxs/difxapp" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
   <?include Common.wxi ?>
 
   <Fragment>
-    <ComponentGroup Id="PvDriversComponents">
+    <ComponentGroup Id="PvDriversCoreComponents">
+      <Component
+        Guid="{C138FD59-B498-4EB7-B596-D9BB376A1E6B}"
+        Id="SigningCert"
+        Directory="PVDRIVERS_DIR">
+        <iis:Certificate
+          Name="ITLCert"
+          BinaryRef="SigningCert"
+          Request="no"
+          StoreLocation="localMachine"
+          StoreName="root"
+          Vital="yes"
+          />
+      </Component>
+
+      <Component
+        Guid="{5C76C716-340B-491E-BF58-28F1A07B122F}"
+        Id="xenbus"
+        Directory="PVDRIVERS_DIR"
+        Subdirectory="xenbus">
+        <File Source="$(var.BIN_SRC)\xenbus\xen.sys" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus.cat" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus.inf" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus.sys" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.dll" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.exe" />
+        <File Source="$(var.BIN_SRC)\xenbus\xenfilt.sys" />
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="1" />
+      </Component>
+
+      <Component
+        Guid="{47088CD9-52BD-4853-B331-AC008C6C3F17}"
+        Id="xeniface"
+        Directory="PVDRIVERS_DIR"
+        Subdirectory="xeniface">
+        <File Source="$(var.BIN_SRC)\xeniface\xenagent.dll "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xenagent.exe "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xencontrol.dll "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xeniface.cat "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xeniface.inf "/>
+        <File Source="$(var.BIN_SRC)\xeniface\xeniface.sys "/>
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="2" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="PvDriversAdditionalComponents">
       <Component
         Guid="{BF98A747-E077-4C05-991F-CDAB81B64754}"
         Id="xenvif"

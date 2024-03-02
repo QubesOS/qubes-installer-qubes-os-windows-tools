@@ -18,10 +18,12 @@ This file contains the declaration of all the localizable strings.
   <String Id="SendToEditInDispVm" Value="Edit in disposable qube" />
 
   <String Id="FeatureCoreTitle" Value="Required files and services" />
-  <String Id="FeatureCoreDescription" Value="Xen paravirtual bus and interface drivers, Qubes configuration database service and RPC agent with necessary utilities and libraries." />
+  <String Id="FeatureCoreDescription" Value="Qubes configuration database service and RPC agent with necessary utilities and libraries." />
   <String Id="FeatureGuiTitle" Value="GUI agent (EXPERIMENTAL)" />
   <String Id="FeatureGuiDescription" Value="GUI agent for seamless integration." />
-  <String Id="FeaturePvDriversTitle" Value="Xen PV disk and network drivers" />
-  <String Id="FeaturePvDriversDescription" Value="Xen paravirtual disk and network drivers for increased performance." />
+  <String Id="FeaturePvDriversCoreTitle" Value="Xen paravirtual bus and interface drivers" />
+  <String Id="FeaturePvDriversCoreDescription" Value="Core Xen drivers providing kernel- and user-mode hypervisor API." />
+  <String Id="FeaturePvDriversAdditionalTitle" Value="Xen PV disk and network drivers" />
+  <String Id="FeaturePvDriversAdditionalDescription" Value="Xen paravirtual disk and network drivers for increased performance." />
 
 </WixLocalization>

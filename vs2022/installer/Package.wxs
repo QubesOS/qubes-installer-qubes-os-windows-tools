@@ -34,8 +34,17 @@
     </InstallExecuteSequence>
 
     <Feature
+      Id="PvDriversCore"
+      AllowAbsent="yes"
+      AllowAdvertise="no"
+      Title="!(loc.FeaturePvDriversCoreTitle)"
+      Description="!(loc.FeaturePvDriversCoreDescription)">
+      <ComponentGroupRef Id="PvDriversCoreComponents" />
+    </Feature>
+
+    <Feature
       Id="Core"
-      AllowAbsent="no"
+      AllowAbsent="yes"
       AllowAdvertise="no"
       Title="!(loc.FeatureCoreTitle)"
       Description="!(loc.FeatureCoreDescription)">
@@ -52,12 +61,12 @@
     </Feature>
 
     <Feature
-      Id="PvDrivers"
+      Id="PvDriversAdditional"
       AllowAbsent="yes"
       AllowAdvertise="no"
-      Title="!(loc.FeaturePvDriversTitle)"
-      Description="!(loc.FeaturePvDriversDescription)">
-      <ComponentGroupRef Id="PvDriversComponents" />
+      Title="!(loc.FeaturePvDriversAdditionalTitle)"
+      Description="!(loc.FeaturePvDriversAdditionalDescription)">
+      <ComponentGroupRef Id="PvDriversAdditionalComponents" />
     </Feature>
   </Package>
 </Wix>
