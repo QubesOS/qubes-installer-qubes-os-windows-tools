@@ -13,10 +13,10 @@ Visual Studio solution includes relevant projects from submodules and allows bui
 - .NET SDK: https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.101-windows-x64-installer
 - WiX as a .NET tool: `dotnet tool install --global wix`
 - WiX extensions:
-  - `wix extension add WixToolset.Bal.wixext`
-  - `wix extension add WixToolset.DifxApp.wixext`
-  - `wix extension add WixToolset.Iis.wixext`
-  - `wix extension add WixToolset.UI.wixext`
+  - `wix extension add --global WixToolset.Bal.wixext`
+  - `wix extension add --global WixToolset.DifxApp.wixext`
+  - `wix extension add --global WixToolset.Iis.wixext`
+  - `wix extension add --global WixToolset.UI.wixext`
 
 ## Command-line build
 
