@@ -99,18 +99,18 @@
             Name="!(loc.SendToCopyToVm)"
             Advertise="yes"
             Directory="SendToFolder"
-            Arguments="@default|qubes.Filecopy|[RPC_HANDLERS_DIR]\file-sender.exe" />
+            Arguments="@default|qubes.Filecopy|%USERNAME%|[RPC_HANDLERS_DIR]\file-sender.exe" />
           <Shortcut
             Name="!(loc.SendToEditInVm)"
             Advertise="yes"
             Directory="SendToFolder"
-            Arguments="@default|qubes.OpenInVM|[RPC_HANDLERS_DIR]\open-in-vm.exe"
+            Arguments="@default|qubes.OpenInVM|%USERNAME%|[RPC_HANDLERS_DIR]\open-in-vm.exe"
             Show="minimized" />
           <Shortcut
             Name="!(loc.SendToEditInDispVm)"
             Advertise="yes"
             Directory="SendToFolder"
-            Arguments="@dispvm|qubes.OpenInVM|[RPC_HANDLERS_DIR]\open-in-vm.exe"
+            Arguments="@dispvm|qubes.OpenInVM|%USERNAME%|[RPC_HANDLERS_DIR]\open-in-vm.exe"
             Show="minimized" />
         </File>
         <File Source="$(var.BIN_SRC)\qrexec-wrapper.exe" />
