@@ -96,7 +96,6 @@
         <!-- This needs to be separate from QrexecAgent because here qrexec-client-vm needs to be
              the keypath (so it's the target for shortcuts). -->
         <File Source="$(var.BIN_SRC)\advertise-tools.exe" />
-        <File Source="$(var.BIN_SRC)\ask-vm-and-run.exe" />
         <File Source="$(var.BIN_SRC)\qrexec-client-vm.exe" KeyPath="yes" >
           <!-- TODO: these shortcuts are only installed for the current user.
              It seems impossible to do for all users in the installer. -->
