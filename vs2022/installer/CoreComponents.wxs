@@ -30,6 +30,11 @@
           <RegistryValue Name="IHVDRIVER" Type="integer" Value="3" />
         </RegistryKey>
 
+        <!-- Enable paths longer than MAX_PATH for FS APIs by default -->
+        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\FileSystem">
+          <RegistryValue Name="LongPathsEnabled" Type="integer" Value="1" />
+        </RegistryKey>
+
         <Environment
           Id="QubesToolsEnv"
           Action="set"
