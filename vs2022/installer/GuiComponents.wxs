@@ -16,6 +16,9 @@
           <RegistryValue Name="SeamlessMode" Type="integer" Value="0" /> <!-- TODO enable after polishing -->
           <RegistryValue Name="DisableCursor" Type="integer" Value="1" />
         </RegistryKey>
+        <RegistryKey Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Policies\System">
+          <RegistryValue Name="SoftwareSASGeneration" Type="integer" Value="1" />
+        </RegistryKey>
       </Component>
 
       <Component
