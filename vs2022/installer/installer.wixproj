@@ -15,11 +15,32 @@
     </PreBuildEvent>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
+  <!-- This task creates a Wix include (version.wxi) with the version number definition. -->
+  <UsingTask
+    TaskName="CreateVersionWxi"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
+    <ParameterGroup />
+    <Task>
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />
+      <Using Namespace="System.Xml.Linq" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+var version = File.ReadAllText(@"..\..\version").Trim();
+var wxi =
+  new XDocument(
+    new XElement("Include",
+      new XProcessingInstruction("define", "QWTVersion='" + version + ".0'")));
+wxi.Save("version.wxi");
+        ]]></Code>
+    </Task>
+  </UsingTask>
   <!-- This target signs all dependent binaries before building the installer.
        Normal prebuild action doesn't work properly (if building outside VS,
        prebuild can be executed before all dependent projects are built). -->
   <Target Name="CustomBeforeBuild" AfterTargets="AfterResolveReferences">
     <Exec Command="call &quot;%EWDK_PATH%\BuildEnv\SetupBuildEnv.cmd&quot; x86_amd64 &amp;&amp; powershell -executionpolicy bypass $(SolutionDir)\..\sign.ps1" />
+    <CreateVersionWxi />
   </Target>
   <ItemGroup>
     <Content Include="Common.wxi" />
