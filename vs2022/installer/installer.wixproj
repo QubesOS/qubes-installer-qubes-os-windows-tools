@@ -1,4 +1,4 @@
-﻿<Project Sdk="WixToolset.Sdk/4.0.3">
+﻿<Project Sdk="WixToolset.Sdk/4.0.5">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutputPath>..\x64\Debug</OutputPath>
     <IntermediateOutputPath>..\tmp\installer</IntermediateOutputPath>
@@ -16,10 +16,7 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <!-- This task creates a Wix include (version.wxi) with the version number definition. -->
-  <UsingTask
-    TaskName="CreateVersionWxi"
-    TaskFactory="CodeTaskFactory"
-    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
+  <UsingTask TaskName="CreateVersionWxi" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll">
     <ParameterGroup />
     <Task>
       <Reference Include="System.Xml" />
@@ -46,9 +43,9 @@ wxi.Save("version.wxi");
     <Content Include="Common.wxi" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.3" />
-    <PackageReference Include="WixToolset.DifxApp.wixext" Version="4.0.3" />
-    <PackageReference Include="WixToolset.Iis.wixext" Version="4.0.3" />
-    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
+    <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.5" />
+    <PackageReference Include="WixToolset.DifxApp.wixext" Version="4.0.5" />
+    <PackageReference Include="WixToolset.Iis.wixext" Version="4.0.5" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.5" />
   </ItemGroup>
 </Project>

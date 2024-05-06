@@ -1,10 +1,18 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
   <Bundle
     Name="Qubes Windows Tools"
     Manufacturer="Invisible Things Lab"
     IconSourceFile="..\..\qubes.ico"
     Version="!(bind.packageVersion.MainPackage)"
     UpgradeCode="00d4b3a0-f71d-4ec6-a969-4ee7954000f9">
+
+    <util:RegistrySearch
+      Id="VcRedistSearch"
+      Bitness="always64"
+      Root="HKLM"
+      Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
+      Value="Installed"
+      Variable="VcRedistInstalled"/>
 
     <BootstrapperApplication>
       <bal:WixInternalUIBootstrapperApplication
@@ -20,9 +28,11 @@
         Vital="yes"
         SourceFile="$(env.EWDK_PATH)\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Redist\MSVC\v143\vc_redist.x64.exe"
         Permanent="yes"
+        DetectCondition="VcRedistInstalled = 1"
         bal:PrereqPackage="yes"
         bal:PrereqLicenseUrl="https://visualstudio.microsoft.com/license-terms/vs2022-cruntime/"
-        InstallArguments="/quiet" />
+        InstallArguments="/quiet" >
+      </ExePackage>
       <MsiPackage
         Id="MainPackage"
         Vital="yes"
