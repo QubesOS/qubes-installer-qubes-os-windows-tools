@@ -3,6 +3,7 @@
 
   <Fragment>
     <ComponentGroup Id="CoreComponents">
+
       <Component
         Guid="{D8203722-9A7C-4866-BA07-62AB6AE08B2E}"
         Id="SharedDlls"
@@ -159,8 +160,15 @@
         <File Source="$(var.SERVICES_SRC)\set-time.ps1" />
         <File Source="$(var.SERVICES_SRC)\start-app.ps1" />
         <File Source="$(var.SERVICES_SRC)\update-time.bat" />
-
       </Component>
-      </ComponentGroup>
+
+      <Component
+        Guid="{CBC27915-348B-48F6-B888-538EC8AA8555}"
+        Id="PreparePrivateImg"
+        Directory="BIN_DIR">
+        <File Source="..\..\src\prepare-private-img.ps1" />
+      </Component>
+
+    </ComponentGroup>
   </Fragment>
 </Wix>

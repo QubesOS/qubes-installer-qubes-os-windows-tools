@@ -47,5 +47,6 @@ wxi.Save("version.wxi");
     <PackageReference Include="WixToolset.DifxApp.wixext" Version="4.0.5" />
     <PackageReference Include="WixToolset.Iis.wixext" Version="4.0.5" />
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.5" />
+    <PackageReference Include="WixToolset.util.wixext" Version="4.0.5" />
   </ItemGroup>
 </Project>
