@@ -26,7 +26,7 @@
           <RegistryValue Name="LogRetention" Type="integer" Value="604800" />
           <RegistryValue Name="LogSafeFlush" Type="integer" Value="0" />
         </RegistryKey>
-        
+
         <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\Session Manager\Debug Print Filter">
           <RegistryValue Name="IHVDRIVER" Type="integer" Value="3" />
         </RegistryKey>
@@ -87,6 +87,29 @@
         </ServiceInstall>
 
         <ServiceControl Name="QrexecAgent" Start="install" Stop="uninstall" Remove="uninstall" Wait="yes" />
+      </Component>
+
+      <Component
+        Guid="{A062576F-BDD3-40DD-8508-1B769CF3236A}"
+        Id="NetworkSetup"
+        Directory="BIN_DIR">
+
+        <File Source="$(var.BIN_SRC)\network-setup.exe" KeyPath="yes" />
+
+        <ServiceInstall
+          Name="QubesNetworkSetup"
+          DisplayName="!(loc.NetworkSetupServiceName)"
+          Description="!(loc.NetworkSetupServiceDescription)"
+          Account="LocalSystem"
+          Type="ownProcess"
+          Start="auto"
+          ErrorControl="ignore"
+          Interactive="no"
+          Arguments="-service">
+          <ServiceDependency Id="QdbDaemon"/>
+        </ServiceInstall>
+
+        <ServiceControl Name="QubesNetworkSetup" Start="install" Stop="uninstall" Remove="uninstall" Wait="yes" />
       </Component>
 
       <Component
