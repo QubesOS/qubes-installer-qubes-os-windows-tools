@@ -9,7 +9,8 @@
     Name="Qubes Windows Tools v$(QWTVersion)"
     Manufacturer="Invisible Things Lab"
     Version="$(QWTVersion)"
-    UpgradeCode="08f56372-de01-4500-bc5a-69a34c54289c"
+    ProductCode="*"
+    UpgradeCode="{14BCB82F-3C4B-4C77-8E00-20BAEBC61354}"
     Scope="perMachine">
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
     <MediaTemplate EmbedCab="yes" />
