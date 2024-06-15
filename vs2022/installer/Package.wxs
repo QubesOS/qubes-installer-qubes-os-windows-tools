@@ -6,7 +6,7 @@
   <?include version.wxi ?>
 
   <Package
-    Name="Qubes Windows Tools"
+    Name="Qubes Windows Tools v$(QWTVersion)"
     Manufacturer="Invisible Things Lab"
     Version="$(QWTVersion)"
     UpgradeCode="08f56372-de01-4500-bc5a-69a34c54289c"
@@ -17,7 +17,7 @@
     <Icon Id="icon.ico" SourceFile="..\..\qubes.ico" />
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
     <Property Id="ARPPRODUCTICON" Value="icon.ico" />
-    
+
     <!-- TODO Launch Condition="MsiNTProductType = 1 AND VersionNT64 = 1000" Message="!(loc.UnsupportedOsError)" /-->
 
     <WixVariable Id="WixUILicenseRtf" Value="..\..\LICENSE.rtf" />
