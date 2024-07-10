@@ -193,5 +193,32 @@
       </Component>
 
     </ComponentGroup>
+
+    <Property Id="QUBES_USER_DIR">
+      <DirectorySearch Id="QUBES_USER_DIR" AssignToProperty="yes" Depth="0" Path="q:\users" />
+    </Property>
+
+    <ComponentGroup Id="MoveUsersComponents">
+      <Component
+        Guid="{70781900-56B4-4EDC-89C6-F20DC454B740}"
+        Id="RelocateDir"
+        Directory="System64Folder"
+        Condition="NOT QUBES_USER_DIR"> <!-- TODO: make this condition better, currently we skip moving users if q:\users exists -->
+        <File Source="$(var.BIN_SRC)\relocate-dir.exe"/>
+        <RegistryValue
+          Root="HKLM"
+          Key="System\CurrentControlSet\Control\Session Manager"
+          Name="BootExecute"
+          Type="multiString"
+          Action="append"
+          Value="relocate-dir.exe C:\Users Q:\Users" />
+        <RegistryValue
+          Root="HKLM"
+          Key="Software\Invisible Things Lab\Qubes Tools"
+          Name="LogDir"
+          Type="string"
+          Value="Q:\Qubes Logs" />
+      </Component>
+    </ComponentGroup>
   </Fragment>
 </Wix>

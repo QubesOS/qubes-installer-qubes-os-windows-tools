@@ -23,6 +23,8 @@ This file contains the declaration of all the localizable strings.
   <String Id="FeatureCoreDescription" Value="Qubes configuration database service and RPC agent with necessary utilities and libraries." />
   <String Id="FeatureGuiTitle" Value="GUI agent (EXPERIMENTAL)" />
   <String Id="FeatureGuiDescription" Value="GUI agent for seamless integration." />
+  <String Id="FeatureMoveUsersTitle" Value="Move users directory to the private image" />
+  <String Id="FeatureMoveUsersDescription" Value="Move C:\users to Q:\Users on the Qubes Private Image disk." />
   <String Id="FeaturePvDriversCoreTitle" Value="Xen paravirtual bus and interface drivers" />
   <String Id="FeaturePvDriversCoreDescription" Value="Core Xen drivers providing kernel- and user-mode hypervisor API." />
   <String Id="FeaturePvDriversAdditionalTitle" Value="Xen PV disk and network drivers" />
