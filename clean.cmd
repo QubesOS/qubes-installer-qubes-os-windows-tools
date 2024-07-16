@@ -9,8 +9,8 @@ rmdir /s /q "%~dp0\vs2022\installer\obj"
 rmdir /s /q "%~dp0\vs2022\installer\version.wxi"
 rmdir /s /q "%~dp0\vs2022\installer-bundle\obj"
 del /q /f "%~dp0\testsign.cer"
-del /q /f "%~dp0\qubes-windows-tools.exe"
-del /q /f "%~dp0\qubes-windows-tools.wixpdb"
+del /q /f "%~dp0\qubes-windows-tools*.exe"
+del /q /f "%~dp0\qubes-windows-tools*.wixpdb"
 
 pushd "%~dp0\qubes-vmm-xen-windows-pvdrivers\xenbus"
 rmdir /s /q xenbus

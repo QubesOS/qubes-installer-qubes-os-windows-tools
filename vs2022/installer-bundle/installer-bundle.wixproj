@@ -1,17 +1,18 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.5">
   <PropertyGroup>
     <OutputType>Bundle</OutputType>
-    <OutputName>qubes-windows-tools</OutputName>
     <Platforms>x64</Platforms>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputName>qubes-windows-tools</OutputName>
     <OutputPath>..\..</OutputPath>
     <CabinetCachePath>..\tmp\installer-bundle\cab-cache</CabinetCachePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputName>qubes-windows-tools-debug</OutputName>
     <OutputPath>..\..</OutputPath>
     <CabinetCachePath>..\tmp\installer-bundle\cab-cache</CabinetCachePath>
   </PropertyGroup>
