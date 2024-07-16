@@ -48,7 +48,7 @@
       </Component>
     </ComponentGroup>
 
-    <ComponentGroup Id="PvDriversAdditionalComponents">
+    <ComponentGroup Id="PvDriversNetworkComponents">
       <Component
         Guid="{BF98A747-E077-4C05-991F-CDAB81B64754}"
         Id="xenvif"
@@ -57,7 +57,7 @@
         <File Source="$(var.BIN_SRC)\xenvif\xenvif.cat" />
         <File Source="$(var.BIN_SRC)\xenvif\xenvif.inf" />
         <File Source="$(var.BIN_SRC)\xenvif\xenvif.sys" />
-        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="3" />
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="4" />
       </Component>
 
       <Component
@@ -68,9 +68,11 @@
         <File Source="$(var.BIN_SRC)\xennet\xennet.cat" />
         <File Source="$(var.BIN_SRC)\xennet\xennet.inf" />
         <File Source="$(var.BIN_SRC)\xennet\xennet.sys" />
-        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="4" />
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="5" />
       </Component>
+    </ComponentGroup>
 
+    <ComponentGroup Id="PvDriversDiskComponents">
       <Component
         Guid="{F0BE0053-6D03-4A88-B49A-A17E1F3B6520}"
         Id="xenvbd"
@@ -81,7 +83,7 @@
         <File Source="$(var.BIN_SRC)\xenvbd\xenvbd.sys" />
         <File Source="$(var.BIN_SRC)\xenvbd\xendisk.sys" />
         <File Source="$(var.BIN_SRC)\xenvbd\xencrsh.sys" />
-        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="5" />
+        <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="3" />
       </Component>
     </ComponentGroup>
     </Fragment>

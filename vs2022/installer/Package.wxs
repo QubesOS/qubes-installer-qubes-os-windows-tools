@@ -95,12 +95,21 @@
     </Feature>
 
     <Feature
-      Id="PvDriversAdditional"
+      Id="PvDriversNetwork"
       AllowAbsent="yes"
       AllowAdvertise="no"
-      Title="!(loc.FeaturePvDriversAdditionalTitle)"
-      Description="!(loc.FeaturePvDriversAdditionalDescription)">
-      <ComponentGroupRef Id="PvDriversAdditionalComponents" />
+      Title="!(loc.FeaturePvDriversNetworkTitle)"
+      Description="!(loc.FeaturePvDriversNetworkDescription)">
+      <ComponentGroupRef Id="PvDriversNetworkComponents" />
+    </Feature>
+
+    <Feature
+    Id="PvDriversDisk"
+    AllowAbsent="yes"
+    AllowAdvertise="no"
+    Title="!(loc.FeaturePvDriversDiskTitle)"
+    Description="!(loc.FeaturePvDriversDiskDescription)">
+      <ComponentGroupRef Id="PvDriversDiskComponents" />
     </Feature>
   </Package>
 </Wix>

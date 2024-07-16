@@ -27,7 +27,9 @@ This file contains the declaration of all the localizable strings.
   <String Id="FeatureMoveUsersDescription" Value="Move C:\users to Q:\Users on the Qubes Private Image disk." />
   <String Id="FeaturePvDriversCoreTitle" Value="Xen paravirtual bus and interface drivers" />
   <String Id="FeaturePvDriversCoreDescription" Value="Core Xen drivers providing kernel- and user-mode hypervisor API." />
-  <String Id="FeaturePvDriversAdditionalTitle" Value="Xen PV disk and network drivers" />
-  <String Id="FeaturePvDriversAdditionalDescription" Value="Xen paravirtual disk and network drivers for increased performance." />
+  <String Id="FeaturePvDriversNetworkTitle" Value="Xen paravirtual network drivers" />
+  <String Id="FeaturePvDriversNetworkDescription" Value="Xen PV network drivers for increased performance." />
+  <String Id="FeaturePvDriversDiskTitle" Value="Xen paravirtual disk drivers" />
+  <String Id="FeaturePvDriversDiskDescription" Value="Xen PV disk drivers for increased performance." />
 
 </WixLocalization>
