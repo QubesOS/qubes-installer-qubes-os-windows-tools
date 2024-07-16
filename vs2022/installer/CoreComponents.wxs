@@ -36,6 +36,12 @@
           <RegistryValue Name="LongPathsEnabled" Type="integer" Value="1" />
         </RegistryKey>
 
+        <!-- Disable hibernation, it leads to many issues like disk corruption with templates -->
+        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\Power">
+          <RegistryValue Name="HibernateEnabled" Type="integer" Value="0" />
+          <RegistryValue Name="HibernateEnabledDefault" Type="integer" Value="0" />
+        </RegistryKey>
+
         <Environment
           Id="QubesToolsEnv"
           Action="set"
