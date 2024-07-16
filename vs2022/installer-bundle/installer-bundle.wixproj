@@ -26,4 +26,7 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(SolutionDir)\..\" />
   </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="@set /p qversion=&lt;$(SolutionDir)\..\version&#xD;&#xA;@move $(TargetPath) &quot;$(TargetDir)$(TargetName)-%qversion%$(TargetExt)&quot;" />
+  </Target>
 </Project>
