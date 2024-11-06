@@ -1,0 +1,20 @@
+source:
+  files:
+  - url: https://www.nuget.org/api/v2/package/WixToolset.Sdk/4.0.5#/wixtoolset.sdk.4.0.5.nupkg
+    sha256: wixtoolset.sdk.4.0.5.nupkg.sha256
+  - url: https://www.nuget.org/api/v2/package/WixToolset.Bal.wixext/4.0.5#/wixtoolset.bal.wixext.4.0.5.nupkg
+    sha256: wixtoolset.bal.wixext.4.0.5.nupkg.sha256
+  - url: https://www.nuget.org/api/v2/package/WixToolset.DifxApp.wixext/4.0.5#/wixtoolset.difxapp.wixext.4.0.5.nupkg
+    sha256: wixtoolset.difxapp.wixext.4.0.5.nupkg.sha256
+  - url: https://www.nuget.org/api/v2/package/WixToolset.Iis.wixext/4.0.5#/wixtoolset.iis.wixext.4.0.5.nupkg
+    sha256: wixtoolset.iis.wixext.4.0.5.nupkg.sha256
+  - url: https://www.nuget.org/api/v2/package/WixToolset.UI.wixext/4.0.5#/wixtoolset.ui.wixext.4.0.5.nupkg
+    sha256: wixtoolset.ui.wixext.4.0.5.nupkg.sha256
+  - url: https://www.nuget.org/api/v2/package/WixToolset.Util.wixext/4.0.5#/wixtoolset.util.wixext.4.0.5.nupkg
+    sha256: wixtoolset.util.wixext.4.0.5.nupkg.sha256
+vm:
+  windows:
+    build:
+    - vs2022/installer.sln
+    bin:
+    - qubes-windows-tools-@VERSION@.exe

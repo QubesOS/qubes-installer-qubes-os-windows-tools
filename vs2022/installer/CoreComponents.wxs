@@ -1,6 +1,4 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <?include Common.wxi ?>
-
   <Fragment>
     <ComponentGroup Id="CoreComponents">
 
@@ -8,11 +6,11 @@
         Guid="{D8203722-9A7C-4866-BA07-62AB6AE08B2E}"
         Id="SharedDlls"
         Directory="System64Folder">
-        <File Source="$(var.BIN_SRC)\libvchan.dll "/>
-        <File Source="$(var.BIN_SRC)\libxenvchan.dll "/>
-        <File Source="$(var.BIN_SRC)\qubesdb-client.dll "/>
-        <File Source="$(var.BIN_SRC)\windows-utils.dll "/>
-        <File Source="$(var.BIN_SRC)\xeniface\xencontrol.dll "/>
+        <File Source="$(env.QUBES_REPO)\core-qubesdb\bin\qubesdb-client.dll" />
+        <File Source="$(env.QUBES_REPO)\core-vchan-xen\bin\libvchan.dll" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\libxenvchan.dll" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xencontrol.dll" />
+        <File Source="$(env.QUBES_REPO)\windows-utils\bin\windows-utils.dll" />
       </Component>
 
       <Component
@@ -56,8 +54,8 @@
         Guid="{A8D779C4-66BA-4E52-9510-EFBB6D4D7734}"
         Id="QubesDB"
         Directory="BIN_DIR">
-        <File Source="$(var.BIN_SRC)\qubesdb-cmd.exe" />
-        <File Source="$(var.BIN_SRC)\qubesdb-daemon.exe" KeyPath="yes" />
+        <File Source="$(env.QUBES_REPO)\core-qubesdb\bin\qubesdb-cmd.exe" />
+        <File Source="$(env.QUBES_REPO)\core-qubesdb\bin\qubesdb-daemon.exe" KeyPath="yes" />
         <ServiceInstall
           Name="QdbDaemon"
           DisplayName="!(loc.QdbServiceName)"
@@ -78,7 +76,7 @@
         Id="QrexecAgent"
         Directory="BIN_DIR">
 
-        <File Source="$(var.BIN_SRC)\qrexec-agent.exe" KeyPath="yes" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qrexec-agent.exe" KeyPath="yes" />
 
         <ServiceInstall
           Name="QrexecAgent"
@@ -100,7 +98,7 @@
         Id="NetworkSetup"
         Directory="BIN_DIR">
 
-        <File Source="$(var.BIN_SRC)\network-setup.exe" KeyPath="yes" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\network-setup.exe" KeyPath="yes" />
 
         <ServiceInstall
           Name="QubesNetworkSetup"
@@ -125,8 +123,8 @@
 
         <!-- This needs to be separate from QrexecAgent because here qrexec-client-vm needs to be
              the keypath (so it's the target for shortcuts). -->
-        <File Source="$(var.BIN_SRC)\advertise-tools.exe" />
-        <File Source="$(var.BIN_SRC)\qrexec-client-vm.exe" KeyPath="yes" >
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\advertise-tools.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qrexec-client-vm.exe" KeyPath="yes" >
           <!-- TODO: these shortcuts are only installed for the current user.
              It seems impossible to do for all users in the installer. -->
           <Shortcut
@@ -147,7 +145,7 @@
             Arguments="@dispvm|qubes.OpenInVM|%USERNAME%|[RPC_HANDLERS_DIR]\open-in-vm.exe"
             Show="minimized" />
         </File>
-        <File Source="$(var.BIN_SRC)\qrexec-wrapper.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qrexec-wrapper.exe" />
 
       </Component>
 
@@ -156,39 +154,39 @@
         Id="QrexecServiceDefinitions"
         Directory="RPC_DEFINITIONS_DIR">
 
-        <File Source="$(var.SERVICES_SRC)\qubes.ClipboardCopy" />
-        <File Source="$(var.SERVICES_SRC)\qubes.ClipboardPaste" />
-        <File Source="$(var.SERVICES_SRC)\qubes.Filecopy" />
-        <File Source="$(var.SERVICES_SRC)\qubes.GetAppMenus" />
-        <File Source="$(var.SERVICES_SRC)\qubes.GetImageRGBA" />
-        <File Source="$(var.SERVICES_SRC)\qubes.OpenInVM" />
-        <File Source="$(var.SERVICES_SRC)\qubes.OpenURL" />
-        <File Source="$(var.SERVICES_SRC)\qubes.SetDateTime" />
-        <File Source="$(var.SERVICES_SRC)\qubes.SetGuiMode" />
-        <File Source="$(var.SERVICES_SRC)\qubes.StartApp" />
-        <File Source="$(var.SERVICES_SRC)\qubes.SuspendPostAll" />
-        <File Source="$(var.SERVICES_SRC)\qubes.VMShell" />
-        <File Source="$(var.SERVICES_SRC)\qubes.WaitForSession" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.ClipboardCopy" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.ClipboardPaste" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.Filecopy" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.GetAppMenus" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.GetImageRGBA" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.OpenInVM" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.OpenURL" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.SetDateTime" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.SetGuiMode" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.StartApp" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.SuspendPostAll" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.VMShell" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.WaitForSession" />
       </Component>
 
       <Component
         Guid="{D1987297-F924-4678-989B-8B0CAEEB1CCF}"
         Id="QrexecServiceHandlers"
         Directory="RPC_HANDLERS_DIR">
-        <File Source="$(var.BIN_SRC)\clipboard-copy.exe" />
-        <File Source="$(var.BIN_SRC)\clipboard-paste.exe" />
-        <File Source="$(var.BIN_SRC)\file-receiver.exe" />
-        <File Source="$(var.BIN_SRC)\file-sender.exe" />
-        <File Source="$(var.BIN_SRC)\get-image-rgba.exe" />
-        <File Source="$(var.BIN_SRC)\open-in-vm.exe" />
-        <File Source="$(var.BIN_SRC)\open-url.exe" />
-        <File Source="$(var.BIN_SRC)\set-gui-mode.exe" />
-        <File Source="$(var.BIN_SRC)\vm-file-editor.exe" />
-        <File Source="$(var.BIN_SRC)\wait-for-logon.exe" />
-        <File Source="$(var.SERVICES_SRC)\get-appmenus.ps1" />
-        <File Source="$(var.SERVICES_SRC)\set-time.ps1" />
-        <File Source="$(var.SERVICES_SRC)\start-app.ps1" />
-        <File Source="$(var.SERVICES_SRC)\update-time.bat" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\clipboard-copy.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\clipboard-paste.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\file-receiver.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\file-sender.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\get-image-rgba.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\open-in-vm.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\open-url.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\set-gui-mode.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\vm-file-editor.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\wait-for-logon.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\get-appmenus.ps1" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\set-time.ps1" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\start-app.ps1" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\update-time.bat" />
       </Component>
 
       <Component
@@ -210,7 +208,7 @@
         Id="RelocateDir"
         Directory="System64Folder"
         Condition="NOT QUBES_USER_DIR"> <!-- TODO: make this condition better, currently we skip moving users if q:\users exists -->
-        <File Source="$(var.BIN_SRC)\relocate-dir.exe"/>
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\relocate-dir.exe" />
         <RegistryValue
           Root="HKLM"
           Key="System\CurrentControlSet\Control\Session Manager"

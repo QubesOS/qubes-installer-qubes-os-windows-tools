@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:difxapp="http://wixtoolset.org/schemas/v4/wxs/difxapp" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
-  <?include Common.wxi ?>
-
   <Fragment>
     <ComponentGroup Id="PvDriversCoreComponents">
-      <Component
+      <!--Component
         Guid="{C138FD59-B498-4EB7-B596-D9BB376A1E6B}"
         Id="SigningCert"
         Directory="PVDRIVERS_DIR">
@@ -16,20 +14,20 @@
           StoreName="root"
           Vital="yes"
           />
-      </Component>
+      </Component-->
 
       <Component
         Guid="{5C76C716-340B-491E-BF58-28F1A07B122F}"
         Id="xenbus"
         Directory="PVDRIVERS_DIR"
         Subdirectory="xenbus">
-        <File Source="$(var.BIN_SRC)\xenbus\xen.sys" />
-        <File Source="$(var.BIN_SRC)\xenbus\xenbus.cat" />
-        <File Source="$(var.BIN_SRC)\xenbus\xenbus.inf" />
-        <File Source="$(var.BIN_SRC)\xenbus\xenbus.sys" />
-        <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.dll" />
-        <File Source="$(var.BIN_SRC)\xenbus\xenbus_monitor.exe" />
-        <File Source="$(var.BIN_SRC)\xenbus\xenfilt.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xen.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus.cat" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus.inf" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus_monitor.dll" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus_monitor.exe" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenfilt.sys" />
         <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="1" />
       </Component>
 
@@ -38,12 +36,12 @@
         Id="xeniface"
         Directory="PVDRIVERS_DIR"
         Subdirectory="xeniface">
-        <File Source="$(var.BIN_SRC)\xeniface\xenagent.dll "/>
-        <File Source="$(var.BIN_SRC)\xeniface\xenagent.exe "/>
-        <File Source="$(var.BIN_SRC)\xeniface\xencontrol.dll "/>
-        <File Source="$(var.BIN_SRC)\xeniface\xeniface.cat "/>
-        <File Source="$(var.BIN_SRC)\xeniface\xeniface.inf "/>
-        <File Source="$(var.BIN_SRC)\xeniface\xeniface.sys "/>
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenagent.dll" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenagent.exe" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xencontrol.dll" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xeniface.cat" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xeniface.inf" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xeniface.sys" />
         <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="2" />
       </Component>
     </ComponentGroup>
@@ -54,9 +52,9 @@
         Id="xenvif"
         Directory="PVDRIVERS_DIR"
         Subdirectory="xenvif">
-        <File Source="$(var.BIN_SRC)\xenvif\xenvif.cat" />
-        <File Source="$(var.BIN_SRC)\xenvif\xenvif.inf" />
-        <File Source="$(var.BIN_SRC)\xenvif\xenvif.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvif.cat" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvif.inf" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvif.sys" />
         <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="4" />
       </Component>
 
@@ -65,9 +63,9 @@
         Id="xennet"
         Directory="PVDRIVERS_DIR"
         Subdirectory="xennet">
-        <File Source="$(var.BIN_SRC)\xennet\xennet.cat" />
-        <File Source="$(var.BIN_SRC)\xennet\xennet.inf" />
-        <File Source="$(var.BIN_SRC)\xennet\xennet.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xennet.cat" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xennet.inf" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xennet.sys" />
         <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="5" />
       </Component>
     </ComponentGroup>
@@ -78,11 +76,11 @@
         Id="xenvbd"
         Directory="PVDRIVERS_DIR"
         Subdirectory="xenvbd">
-        <File Source="$(var.BIN_SRC)\xenvbd\xenvbd.cat" />
-        <File Source="$(var.BIN_SRC)\xenvbd\xenvbd.inf" />
-        <File Source="$(var.BIN_SRC)\xenvbd\xenvbd.sys" />
-        <File Source="$(var.BIN_SRC)\xenvbd\xendisk.sys" />
-        <File Source="$(var.BIN_SRC)\xenvbd\xencrsh.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvbd.cat" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvbd.inf" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvbd.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xendisk.sys" />
+        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xencrsh.sys" />
         <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="3" />
       </Component>
     </ComponentGroup>

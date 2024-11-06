@@ -11,8 +11,6 @@
     <CabinetCachePath>..\tmp\installer\cab-cache</CabinetCachePath>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <!-- This task creates a Wix include (version.wxi) with the version number definition. -->
@@ -32,11 +30,10 @@ wxi.Save("version.wxi");
         ]]></Code>
     </Task>
   </UsingTask>
-  <!-- This target signs all dependent binaries before building the installer.
+  <!-- This target generates the Wix include with version before building the installer.
        Normal prebuild action doesn't work properly (if building outside VS,
        prebuild can be executed before all dependent projects are built). -->
   <Target Name="CustomBeforeBuild" AfterTargets="AfterResolveReferences">
-    <Exec Command="call &quot;%EWDK_PATH%\BuildEnv\SetupBuildEnv.cmd&quot; x86_amd64 &amp;&amp; powershell -executionpolicy bypass $(SolutionDir)\..\sign.ps1" />
     <CreateVersionWxi />
   </Target>
   <ItemGroup>

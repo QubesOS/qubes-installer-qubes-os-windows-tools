@@ -25,8 +25,8 @@
     <WixVariable Id="WixUIBannerBmp" Value="..\..\qubes.png" />
     <ui:WixUI Id="WixUI_FeatureTree" />
 
-    <Binary Id="SigningCert" SourceFile="..\..\testsign.cer" />
-    <Binary Id="InstallHelper" SourceFile="..\..\bin\install-helper.exe" />
+    <!--Binary Id="SigningCert" SourceFile="..\..\testsign.cer" /-->
+    <Binary Id="InstallHelper" SourceFile="..\x64\$(var.Configuration)\install-helper\install-helper.exe" />
 
     <!-- This utility adds right to create symbolic links to Users and stops xenbus_monitor service
          to prevent popups that ask for restart before we finish installation. -->

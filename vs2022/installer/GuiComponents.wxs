@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <?include Common.wxi ?>
-
   <Fragment>
     <ComponentGroup Id="GuiComponents">
       <Component
@@ -25,8 +23,8 @@
         Guid="{3BF00311-889D-44EE-824A-1AD42AF60393}"
         Id="GuiAgent"
         Directory="BIN_DIR">
-        <File Source="$(var.BIN_SRC)\gui-agent.exe" />
-        <File Source="$(var.BIN_SRC)\gui-watchdog.exe" KeyPath="yes" />
+        <File Source="$(env.QUBES_REPO)\gui-agent-windows\bin\gui-agent.exe" />
+        <File Source="$(env.QUBES_REPO)\gui-agent-windows\bin\gui-watchdog.exe" KeyPath="yes" />
         <ServiceInstall
           Name="QubesGuiWatchdog"
           DisplayName="!(loc.GuiServiceName)"

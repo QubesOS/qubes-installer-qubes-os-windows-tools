@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <?define BIN_SRC="..\..\bin" ?>
-  <?define SERVICES_SRC="..\..\qubes-core-agent-windows\src\qubes-rpc-services" ?>
-</Include>
