@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
   <Fragment>
     <ComponentGroup Id="GuiComponents">
+      <?if $(env.TEST_SIGN) ?>
+        <Component
+          Guid="{CF8A0B82-FF26-4536-9FC2-F8BBEA2F5017}"
+          Id="SigningCertGui"
+          Directory="BIN_DIR">
+          <iis:Certificate
+            Name="GuiCert"
+            BinaryRef="SigningCertGui"
+            Request="no"
+            StoreLocation="localMachine"
+            StoreName="root"
+            Vital="yes"
+            />
+        </Component>
+      <?endif?>
+
       <Component
         Guid="{C0730EC0-18E6-4CBA-B8A5-A9254F91E41B}"
         Id="GuiSettings"

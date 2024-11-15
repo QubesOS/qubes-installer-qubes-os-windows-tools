@@ -2,19 +2,21 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:difxapp="http://wixtoolset.org/schemas/v4/wxs/difxapp" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
   <Fragment>
     <ComponentGroup Id="PvDriversCoreComponents">
-      <!--Component
-        Guid="{C138FD59-B498-4EB7-B596-D9BB376A1E6B}"
-        Id="SigningCert"
-        Directory="PVDRIVERS_DIR">
-        <iis:Certificate
-          Name="ITLCert"
-          BinaryRef="SigningCert"
-          Request="no"
-          StoreLocation="localMachine"
-          StoreName="root"
-          Vital="yes"
-          />
-      </Component-->
+      <?if $(env.TEST_SIGN) ?>
+        <Component
+          Guid="{C138FD59-B498-4EB7-B596-D9BB376A1E6B}"
+          Id="SigningCertDrivers"
+          Directory="PVDRIVERS_DIR">
+          <iis:Certificate
+            Name="DriversCert"
+            BinaryRef="SigningCertDrivers"
+            Request="no"
+            StoreLocation="localMachine"
+            StoreName="root"
+            Vital="yes"
+            />
+        </Component>
+      <?endif?>
 
       <Component
         Guid="{5C76C716-340B-491E-BF58-28F1A07B122F}"

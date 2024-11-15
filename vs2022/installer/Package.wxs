@@ -25,7 +25,15 @@
     <WixVariable Id="WixUIBannerBmp" Value="..\..\qubes.png" />
     <ui:WixUI Id="WixUI_FeatureTree" />
 
-    <!--Binary Id="SigningCert" SourceFile="..\..\testsign.cer" /-->
+    <?if $(env.TEST_SIGN) ?>
+        <Binary Id="SigningCertDrivers" SourceFile="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\sign.crt" />
+        <Binary Id="SigningCertVchan" SourceFile="$(env.QUBES_REPO)\core-vchan-xen\sign.crt" />
+        <Binary Id="SigningCertUtils" SourceFile="$(env.QUBES_REPO)\windows-utils\sign.crt" />
+        <Binary Id="SigningCertDb" SourceFile="$(env.QUBES_REPO)\core-qubesdb\sign.crt" />
+        <Binary Id="SigningCertAgent" SourceFile="$(env.QUBES_REPO)\core-agent-windows\sign.crt" />
+        <Binary Id="SigningCertGui" SourceFile="$(env.QUBES_REPO)\gui-agent-windows\sign.crt" />
+    <?endif?>
+
     <Binary Id="InstallHelper" SourceFile="..\x64\$(var.Configuration)\install-helper\install-helper.exe" />
 
     <!-- This utility adds right to create symbolic links to Users and stops xenbus_monitor service

@@ -1,6 +1,46 @@
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
   <Fragment>
     <ComponentGroup Id="CoreComponents">
+
+      <?if $(env.TEST_SIGN) ?>
+        <Component
+          Guid="{DCFF0361-3189-4144-B072-119D57F1F6EC}"
+          Id="SigningCertCore"
+          Directory="BIN_DIR">
+          <iis:Certificate
+            Name="VchanCert"
+            BinaryRef="SigningCertVchan"
+            Request="no"
+            StoreLocation="localMachine"
+            StoreName="root"
+            Vital="yes"
+            />
+          <iis:Certificate
+            Name="UtilsCert"
+            BinaryRef="SigningCertUtils"
+            Request="no"
+            StoreLocation="localMachine"
+            StoreName="root"
+            Vital="yes"
+            />
+          <iis:Certificate
+            Name="DbCert"
+            BinaryRef="SigningCertDb"
+            Request="no"
+            StoreLocation="localMachine"
+            StoreName="root"
+            Vital="yes"
+            />
+          <iis:Certificate
+            Name="AgentCert"
+            BinaryRef="SigningCertAgent"
+            Request="no"
+            StoreLocation="localMachine"
+            StoreName="root"
+            Vital="yes"
+            />
+        </Component>
+      <?endif?>
 
       <Component
         Guid="{D8203722-9A7C-4866-BA07-62AB6AE08B2E}"

@@ -18,3 +18,5 @@ vm:
     - vs2022/installer.sln
     bin:
     - qubes-windows-tools-@VERSION@.exe
+    skip-test-sign:
+    - qubes-windows-tools-@VERSION@.exe
