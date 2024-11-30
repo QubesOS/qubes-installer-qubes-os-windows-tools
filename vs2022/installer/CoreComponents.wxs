@@ -205,6 +205,7 @@
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.SetGuiMode" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.StartApp" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.SuspendPostAll" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.VMExec" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.VMShell" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\qubes.WaitForSession" />
       </Component>
@@ -227,6 +228,8 @@
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\set-time.ps1" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\start-app.ps1" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\update-time.bat" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\VMExec-Decode.ps1" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\VMExec.ps1" />
       </Component>
 
       <Component
