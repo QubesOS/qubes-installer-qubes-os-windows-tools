@@ -219,6 +219,7 @@
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\file-receiver.exe" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\file-sender.exe" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\get-image-rgba.exe" />
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\log.ps1" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\open-in-vm.exe" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\open-url.exe" />
         <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\set-gui-mode.exe" />
