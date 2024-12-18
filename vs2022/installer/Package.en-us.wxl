@@ -8,8 +8,6 @@
   <String Id="QdbServiceDescription" Value="Qubes configuration database agent" />
   <String Id="QrexecServiceName" Value="Qubes RPC agent" />
   <String Id="QrexecServiceDescription" Value="Qubes RPC agent" />
-  <String Id="NetworkSetupServiceName" Value="Qubes network setup service" />
-  <String Id="NetworkSetupServiceDescription" Value="Sets parameters for Qubes-managed network interfaces" />
   <String Id="GuiServiceName" Value="Qubes GUI agent watchdog" />
   <String Id="GuiServiceDescription" Value="Qubes GUI agent watchdog" />
 
