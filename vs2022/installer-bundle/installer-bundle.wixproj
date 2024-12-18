@@ -12,7 +12,7 @@
     <CabinetCachePath>..\tmp\installer-bundle\cab-cache</CabinetCachePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutputName>qubes-windows-tools-debug</OutputName>
+    <OutputName>qubes-windows-tools</OutputName>
     <OutputPath>..\..</OutputPath>
     <CabinetCachePath>..\tmp\installer-bundle\cab-cache</CabinetCachePath>
   </PropertyGroup>
