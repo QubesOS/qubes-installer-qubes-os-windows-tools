@@ -16,3 +16,10 @@
 
 - Run `powershell qubes-builderv2\qubesbuilder\plugins\build_windows\scripts\local\build-qwt.ps1 src_dir Release|Debug`
 - All output will be copied to `repository` in the current directory.
+
+### Development
+
+Open `vs2022\qwt.sln` in Visual Studio (see Prerequisites for how to prepare component sources).
+Includes/libs should be set up automatically and everything except the installer should build.
+If VS insists that it doesn't see component includes, try changing solution configuration to/from
+debug/release -- this seems to fix the issue.

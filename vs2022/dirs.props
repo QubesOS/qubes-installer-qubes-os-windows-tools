@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Include/lib paths for all projects except installer -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <QUBES_INCLUDES>$(SolutionDir)\..\..\vmm-xen-windows-pvdrivers\include;$(SolutionDir)\..\..\vmm-xen-windows-pvdrivers\xeniface\include;$(SolutionDir)\..\..\core-vchan-xen\windows\include;$(SolutionDir)\..\..\windows-utils\include;$(SolutionDir)\..\..\core-qubesdb\include;$(SolutionDir)\..\..\gui-common\include</QUBES_INCLUDES>
+    <QUBES_LIBS>$(SolutionDir)\..\..\vmm-xen-windows-pvdrivers\xeniface\xeniface\x64;$(SolutionDir)\..\..\vmm-xen-windows-pvdrivers\vs2022\x64\$(Configuration)\libxenvchan;$(SolutionDir)\..\..\core-vchan-xen\windows\vs2022\x64\$(Configuration)\libvchan;$(SolutionDir)\..\..\windows-utils\vs2022\x64\$(Configuration)\windows-utils;$(SolutionDir)\..\..\core-qubesdb\windows\vs2022\x64\$(Configuration)\qubesdb-client</QUBES_LIBS>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="QUBES_INCLUDES">
+      <Value>$(QUBES_INCLUDES)</Value>
+    </BuildMacro>
+    <BuildMacro Include="QUBES_LIBS">
+      <Value>$(QUBES_LIBS)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
