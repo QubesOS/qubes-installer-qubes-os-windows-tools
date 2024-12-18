@@ -10,6 +10,7 @@
   (TODO: provide offline installer for this)
 - `vmm-xen-windows-pvdrivers`, `core-vchan-xen`, `windows-utils`, `core-qubesdb`,
   `core-agent-windows`, `gui-common` and `gui-agent-windows` sources in the same directory as the installer
+  (without the `qubes-` prefix)
 
 ### Build
 
