@@ -25,7 +25,7 @@
         <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
           <!-- agent-specific log value, verbose causes too much slowdown -->
           <!-- TODO: remove after polishing/bugfixing -->
-          <RegistryValue Name="LogLevel" Key="gui-agent" Type="integer" Value="4" />
+          <RegistryValue Name="LogLevel" Key="gui-agent" Type="integer" Value="3" />
           <RegistryValue Name="GuiAgentPath" Type="string" Value="[INSTALL_DIR]bin\gui-agent.exe" />
           <RegistryValue Name="SeamlessMode" Type="integer" Value="0" /> <!-- TODO enable after polishing -->
           <RegistryValue Name="DisableCursor" Type="integer" Value="1" />

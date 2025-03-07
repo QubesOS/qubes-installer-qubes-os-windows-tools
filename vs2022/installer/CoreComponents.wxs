@@ -60,7 +60,7 @@
         <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
           <RegistryValue Name="InstallDir" Type="string" Value="[INSTALL_DIR]" />
           <RegistryValue Name="LogDir" Type="string" Value="[INSTALL_DIR]log" />
-          <RegistryValue Name="LogLevel" Type="integer" Value="5" /> <!-- TODO allow customization -->
+          <RegistryValue Name="LogLevel" Type="integer" Value="3" /> <!-- TODO allow customization -->
           <RegistryValue Name="LogRetention" Type="integer" Value="604800" />
           <RegistryValue Name="LogSafeFlush" Type="integer" Value="0" />
           <!-- Paths should be absolute, entries are launched as SYSTEM by qrexec-agent -->
