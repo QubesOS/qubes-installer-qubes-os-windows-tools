@@ -1,6 +1,6 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
-    <StandardDirectory Id="TARGETDIR">
+    <StandardDirectory Id="ProgramFiles64Folder">
       <Directory Id="INSTALL_DIR" Name="Qubes Tools">
         <Directory Id="BIN_DIR" Name="bin">
           <Directory Id="PVDRIVERS_DIR" Name="pvdrivers" />
