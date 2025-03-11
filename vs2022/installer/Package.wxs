@@ -19,6 +19,19 @@
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
     <Property Id="ARPPRODUCTICON" Value="icon.ico" />
 
+    <Property Id="SYSTEMSTARTOPTIONS">
+      <RegistrySearch Id="SystemStartOptions"
+        Root="HKLM"
+        Key="SYSTEM\CurrentControlSet\Control"
+        Name="SystemStartOptions"
+        Type="raw"
+      />
+    </Property>
+
+    <?if $(env.TEST_SIGN) ?>
+      <Launch Condition='SYSTEMSTARTOPTIONS &gt;&lt; "TESTSIGNING"' Message="!(loc.TestSigningError)" />
+    <?endif?>
+
     <!-- TODO Launch Condition="MsiNTProductType = 1 AND VersionNT64 = 1000" Message="!(loc.UnsupportedOsError)" /-->
 
     <WixVariable Id="WixUILicenseRtf" Value="..\..\LICENSE.rtf" />
