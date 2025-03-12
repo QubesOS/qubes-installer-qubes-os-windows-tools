@@ -2,18 +2,18 @@
 
 Name:	    qubes-windows-tools
 Version:	@VERSION@
-Release:	@REL@
+Release:	@REL@%{?dist}
 Summary:	Qubes Tools for Windows VMs
 Group:		Qubes
 License:    GPL
-Obsoletes:  qubes-core-dom0-pvdrivers
 BuildRequires: genisoimage
 BuildArch:  noarch
-Source0:    qubes-tools-WIN7x64-%{version}.%{release}.exe
-Source1:    iso-README.txt
+Source0:    %{name}-%{version}.tar.gz
+Source1:    qubes-windows-tools-4.1.0.exe
+Source2:    iso-README.txt
 
 %prep
-%setup -c -T
+%setup -q
 
 %description
 PV Drivers and Qubes Tools for Windows AppVMs. Bundled for Windows 7 64bit.
@@ -21,8 +21,8 @@ PV Drivers and Qubes Tools for Windows AppVMs. Bundled for Windows 7 64bit.
 %build
 
 mkdir -p iso-content
-cp %{SOURCE0} iso-content/qubes-tools-%{version}.%{release}.exe
-cp %{SOURCE1} iso-content/
+cp %{SOURCE1} iso-content/qubes-tools-%{version}.%{release}.exe
+cp %{SOURCE2} iso-content/
 genisoimage -o qubes-windows-tools-%{version}.%{release}.iso -m .gitignore -JR iso-content
 
 
@@ -36,4 +36,4 @@ ln -s qubes-windows-tools-%{version}.%{release}.iso $RPM_BUILD_ROOT/usr/lib/qube
 /usr/lib/qubes/qubes-windows-tools.iso
 
 %changelog
-
+@CHANGELOG@

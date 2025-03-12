@@ -1,0 +1,4 @@
+host:
+  rpm:
+    build:
+    - rpm_spec/win-iso.spec
