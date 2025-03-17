@@ -1,5 +1,43 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
   <Fragment>
+    <!-- Detect existing registry configuration to not overwrite it with default values -->
+    <!-- We can't just use values read by RegistrySearch because it mangles non-string ones... -->
+    <Property Id="LOG_DIR_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="Software\Invisible Things Lab\Qubes Tools"
+        Name="LogDir"
+        Type="raw"
+      />
+    </Property>
+
+    <Property Id="LOG_LEVEL_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="Software\Invisible Things Lab\Qubes Tools"
+        Name="LogLevel"
+        Type="raw"
+      />
+    </Property>
+
+    <Property Id="LOG_RETENTION_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="Software\Invisible Things Lab\Qubes Tools"
+        Name="LogRetention"
+        Type="raw"
+      />
+    </Property>
+
+    <Property Id="LOG_SAFE_FLUSH_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="Software\Invisible Things Lab\Qubes Tools"
+        Name="LogSafeFlush"
+        Type="raw"
+      />
+    </Property>
+
     <ComponentGroup Id="CoreComponents">
 
       <?if $(env.TEST_SIGN) ?>
@@ -53,16 +91,53 @@
         <File Source="$(env.QUBES_REPO)\windows-utils\bin\windows-utils.dll" />
       </Component>
 
+      <!-- Directories for registry-only components are still required... -->
+      <Component
+        Guid="{92F3B49F-9D0E-4162-A88A-D459D07508DF}"
+        Id="LogDirSetting"
+        Condition="NOT LOG_DIR_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <RegistryValue Name="LogDir" Type="string" Value="[INSTALL_DIR]log" />
+        </RegistryKey>
+      </Component>
+
+      <Component
+        Guid="{53C4B221-DCAD-48CC-B82F-10C7B2F0D328}"
+        Id="LogLevelSetting"
+        Condition="NOT LOG_LEVEL_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <RegistryValue Name="LogLevel" Type="integer" Value="3" /> <!-- TODO allow customization -->
+        </RegistryKey>
+      </Component>
+
+      <Component
+        Guid="{59B691D5-C3E4-40AD-8F89-F1BDFA67D019}"
+        Id="LogRetentionSetting"
+        Condition="NOT LOG_RETENTION_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <RegistryValue Name="LogRetention" Type="integer" Value="604800" /> <!-- 1 week -->
+        </RegistryKey>
+      </Component>
+
+      <Component
+        Guid="{4E2ED241-E3C7-48AE-8197-7384BEF2334D}"
+        Id="LogSafeFlushSetting"
+        Condition="NOT LOG_SAFE_FLUSH_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <RegistryValue Name="LogSafeFlush" Type="integer" Value="0" />
+        </RegistryKey>
+      </Component>
+
       <Component
         Guid="{C824195C-F828-4FF5-BFCA-3143F0D89916}"
         Id="SystemSettings"
-        Directory="System64Folder">
+        Directory="INSTALL_DIR">
         <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
           <RegistryValue Name="InstallDir" Type="string" Value="[INSTALL_DIR]" />
-          <RegistryValue Name="LogDir" Type="string" Value="[INSTALL_DIR]log" />
-          <RegistryValue Name="LogLevel" Type="integer" Value="3" /> <!-- TODO allow customization -->
-          <RegistryValue Name="LogRetention" Type="integer" Value="604800" />
-          <RegistryValue Name="LogSafeFlush" Type="integer" Value="0" />
           <!-- Paths should be absolute, entries are launched as SYSTEM by qrexec-agent -->
           <RegistryValue Name="Autostart" Type="multiString">
             <MultiStringValue Value="[BIN_DIR]network-setup.exe"/>
@@ -178,7 +253,7 @@
 
       </Component>
 
-        <Component
+      <Component
         Guid="{FCD05E1D-E07E-4500-950F-2098C7D7EFD7}"
         Id="QrexecServiceDefinitions"
         Directory="RPC_DEFINITIONS_DIR">
@@ -229,6 +304,15 @@
         <File Source="..\..\src\prepare-private-img.ps1" />
       </Component>
 
+      <Component
+        Guid="{7A5C0609-2124-4655-9075-D55CFAAC23DF}"
+        Id="PrivateLogDirSetting"
+        Condition="NOT LOG_DIR_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <RegistryValue Name="LogDir" Type="string" Value="Q:\Qubes Logs" />
+        </RegistryKey>
+      </Component>
     </ComponentGroup>
 
     <Property Id="QUBES_USER_DIR">
@@ -249,12 +333,6 @@
           Type="multiString"
           Action="append"
           Value="relocate-dir.exe C:\Users Q:\Users" />
-        <RegistryValue
-          Root="HKLM"
-          Key="Software\Invisible Things Lab\Qubes Tools"
-          Name="LogDir"
-          Type="string"
-          Value="Q:\Qubes Logs" />
       </Component>
     </ComponentGroup>
   </Fragment>

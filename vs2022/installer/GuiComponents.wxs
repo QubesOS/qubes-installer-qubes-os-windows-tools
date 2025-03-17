@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:iis="http://wixtoolset.org/schemas/v4/wxs/iis">
   <Fragment>
+    <Property Id="GUI_LOG_LEVEL_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="Software\Invisible Things Lab\Qubes Tools\gui-agent"
+        Name="LogLevel"
+        Type="raw"
+      />
+    </Property>
+
+    <Property Id="GUI_SEAMLESS_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="Software\Invisible Things Lab\Qubes Tools"
+        Name="SeamlessMode"
+        Type="raw"
+      />
+    </Property>
+
+    <Property Id="GUI_CURSOR_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="Software\Invisible Things Lab\Qubes Tools"
+        Name="DisableCursor"
+        Type="raw"
+      />
+    </Property>
+
     <ComponentGroup Id="GuiComponents">
       <?if $(env.TEST_SIGN) ?>
         <Component
@@ -19,16 +46,43 @@
       <?endif?>
 
       <Component
-        Guid="{C0730EC0-18E6-4CBA-B8A5-A9254F91E41B}"
-        Id="GuiSettings"
-        Directory="System64Folder">
-        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+        Guid="{D9714E11-0173-4C87-85B9-34BF7884FB15}"
+        Id="GuiLogLevelSetting"
+        Condition="NOT GUI_LOG_LEVEL_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools\gui-agent">
           <!-- agent-specific log value, verbose causes too much slowdown -->
           <!-- TODO: remove after polishing/bugfixing -->
-          <RegistryValue Name="LogLevel" Key="gui-agent" Type="integer" Value="3" />
-          <RegistryValue Name="GuiAgentPath" Type="string" Value="[INSTALL_DIR]bin\gui-agent.exe" />
+          <RegistryValue Name="LogLevel" Type="integer" Value="3" />
+        </RegistryKey>
+      </Component>
+
+      <Component
+        Guid="{1FD323FC-EBA3-4F04-984F-22FA7F246C72}"
+        Id="GuiSeamlessSetting"
+        Condition="NOT GUI_SEAMLESS_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
           <RegistryValue Name="SeamlessMode" Type="integer" Value="0" /> <!-- TODO enable after polishing -->
+        </RegistryKey>
+      </Component>
+
+      <Component
+        Guid="{59E91A71-7F73-4292-ABB4-990B95F3A240}"
+        Id="GuiCursorSetting"
+        Condition="NOT GUI_CURSOR_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
           <RegistryValue Name="DisableCursor" Type="integer" Value="1" />
+        </RegistryKey>
+      </Component>
+
+      <Component
+        Guid="{C0730EC0-18E6-4CBA-B8A5-A9254F91E41B}"
+        Id="GuiSettings"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="Software\Invisible Things Lab\Qubes Tools">
+          <RegistryValue Name="GuiAgentPath" Type="string" Value="[INSTALL_DIR]bin\gui-agent.exe" />
         </RegistryKey>
         <RegistryKey Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Policies\System">
           <RegistryValue Name="SoftwareSASGeneration" Type="integer" Value="1" />
