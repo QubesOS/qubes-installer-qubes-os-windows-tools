@@ -20,3 +20,10 @@ vm:
     - qubes-windows-tools-@VERSION@.exe
     skip-test-sign:
     - qubes-windows-tools-@VERSION@.exe
+host:
+  rpm:
+    build:
+    - rpm_spec/win-iso.spec
+    source:
+      commands:
+      - 'cp @DEPENDENCIES_DIR@/components/@COMPONENT@/@VERREL@/vm-win10/build/bin/qubes-windows-tools-@VERSION@.exe @BUILDER_DIR@/@COMPONENT@/'
