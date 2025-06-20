@@ -38,6 +38,15 @@
       />
     </Property>
 
+    <Property Id="DPF_SET">
+      <RegistrySearch
+        Root="HKLM"
+        Key="SYSTEM\CurrentControlSet\Control\Session Manager\Debug Print Filter"
+        Name="IHVDRIVER"
+        Type="raw"
+      />
+    </Property>
+
     <ComponentGroup Id="CoreComponents">
 
       <?if $(env.TEST_SIGN) ?>
@@ -133,6 +142,16 @@
       </Component>
 
       <Component
+        Guid="{CD253E87-10A2-4BAA-AFA5-6AF0A87DCFAB}"
+        Id="DebugPrintFilter"
+        Condition="NOT DPF_SET"
+        Directory="INSTALL_DIR">
+        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\Session Manager\Debug Print Filter">
+          <RegistryValue Name="IHVDRIVER" Type="integer" Value="3" />
+        </RegistryKey>
+      </Component>
+
+      <Component
         Guid="{C824195C-F828-4FF5-BFCA-3143F0D89916}"
         Id="SystemSettings"
         Directory="INSTALL_DIR">
@@ -142,10 +161,6 @@
           <RegistryValue Name="Autostart" Type="multiString">
             <MultiStringValue Value="[BIN_DIR]network-setup.exe"/>
           </RegistryValue>
-        </RegistryKey>
-
-        <RegistryKey Root="HKLM" Key="SYSTEM\CurrentControlSet\Control\Session Manager\Debug Print Filter">
-          <RegistryValue Name="IHVDRIVER" Type="integer" Value="3" />
         </RegistryKey>
 
         <!-- Enable paths longer than MAX_PATH for FS APIs by default -->
