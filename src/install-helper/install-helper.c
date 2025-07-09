@@ -170,7 +170,7 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
 {
     (void)AddSymlinkRightToUsers();
     HANDLE thread = CreateThread(NULL, 0, ApproveTestSign, NULL, 0, NULL);
-    if (WaitForSingleObject(thread, 30000) == WAIT_TIMEOUT)
+    if (WaitForSingleObject(thread, 1800000) == WAIT_TIMEOUT)
         TerminateThread(thread, 0);
     return (int)StopXenbusMonitor();
 }
