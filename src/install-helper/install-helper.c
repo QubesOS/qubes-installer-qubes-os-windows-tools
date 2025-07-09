@@ -127,8 +127,50 @@ DWORD StopXenbusMonitor()
     return status;
 }
 
+/*
+ * Automatically accept the prompt for installing test-signed drivers.
+ */
+DWORD ApproveTestSign(void* param)
+{
+    while (TRUE)
+    {
+        HWND window = FindWindow(NULL, L"Windows Security");
+        if (window)
+        {
+            DWORD fg_tid = GetWindowThreadProcessId(GetForegroundWindow(), NULL);
+            DWORD tid = GetCurrentThreadId();
+            // Without this, focus-stealing mitigations can prevent activating the target window.
+            if (tid != fg_tid)
+                AttachThreadInput(fg_tid, tid, TRUE);
+
+            BringWindowToTop(window);
+            ShowWindow(window, SW_SHOW);
+
+            while (GetForegroundWindow() != window)
+                Sleep(100);
+
+            INPUT inputs[2];
+            inputs[0].type = INPUT_KEYBOARD;
+            inputs[0].ki.wVk = 'i';
+            inputs[1].type = INPUT_KEYBOARD;
+            inputs[1].ki.dwFlags = KEYEVENTF_KEYUP;
+            inputs[1].ki.wVk = 'i';
+            SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
+            break;
+        }
+        else
+        {
+            Sleep(100);
+        }
+    }
+    return 0;
+}
+
 int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
     (void)AddSymlinkRightToUsers();
+    HANDLE thread = CreateThread(NULL, 0, ApproveTestSign, NULL, 0, NULL);
+    if (WaitForSingleObject(thread, 30000) == WAIT_TIMEOUT)
+        TerminateThread(thread, 0);
     return (int)StopXenbusMonitor();
 }
