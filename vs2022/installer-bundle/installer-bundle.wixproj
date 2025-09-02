@@ -2,9 +2,6 @@
   <PropertyGroup>
     <OutputType>Bundle</OutputType>
     <Platforms>x64</Platforms>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutputName>qubes-windows-tools</OutputName>
@@ -23,10 +20,11 @@
   <ItemGroup>
     <ProjectReference Include="..\installer\installer.wixproj" />
   </ItemGroup>
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(SolutionDir)\..\" />
-  </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="@set /p qversion=&lt;$(SolutionDir)\..\version&#xD;&#xA;@move $(TargetPath) &quot;$(TargetDir)$(TargetName)-%qversion%$(TargetExt)&quot;" />
+    <ReadLinesFromFile File="$(SolutionDir)\..\version">
+      <Output TaskParameter="Lines" PropertyName="QubesVersion"/>
+    </ReadLinesFromFile>
+    <Move SourceFiles="$(TargetPath)" DestinationFiles="$(SolutionDir)\..\$(TargetName)-$(QubesVersion)$(TargetExt)" />
+    <Exec Command="powershell $(QB_SCRIPTS)\local\postbuild.ps1 $(ProjectDir)\..\.. $(QUBES_REPO) $(Configuration)" />
   </Target>
 </Project>
