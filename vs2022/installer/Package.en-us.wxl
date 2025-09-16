@@ -22,6 +22,8 @@
   <String Id="FeatureGuiDescription" Value="GUI agent for seamless integration." />
   <String Id="FeatureMoveUsersTitle" Value="Move users directory to the private image" />
   <String Id="FeatureMoveUsersDescription" Value="Move C:\users to Q:\Users on the Qubes Private Image disk." />
+  <String Id="FeatureAutologonTitle" Value="Enable user autologon with randomized password." />
+  <String Id="FeatureAutologonDescription" Value="NOTE: Don't enable if you use NTFS-encrypted files (EFS), access to them WILL BE LOST! All existing stored credentials (e.g. for network shares) will be invalidated." />
   <String Id="FeaturePvDriversCoreTitle" Value="Xen paravirtual bus and interface drivers" />
   <String Id="FeaturePvDriversCoreDescription" Value="Core Xen drivers providing kernel- and user-mode hypervisor API." />
   <String Id="FeaturePvDriversNetworkTitle" Value="Xen paravirtual network drivers" />
