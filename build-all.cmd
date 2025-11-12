@@ -10,6 +10,7 @@ for %%i in (vmm-xen-windows-pvdrivers core-vchan-xen windows-utils core-qubesdb 
   set CSUB=
   if exist "!CDIR!\windows\build.cmd" set CSUB=windows\
   call "!CDIR!\!CSUB!build.cmd"
+  if !errorlevel! neq 0 exit /b !errorlevel!
 )
 
 powershell %QUBES_BUILDER%\qubesbuilder\plugins\build_windows\scripts\local\build.ps1 %~dp0 %QUBES_REPO% %BUILD_CFG%
