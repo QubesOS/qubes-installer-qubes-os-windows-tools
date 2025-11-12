@@ -9,7 +9,7 @@ for %%i in (vmm-xen-windows-pvdrivers core-vchan-xen windows-utils core-qubesdb 
   set CDIR=%~dp0\..\%%i
   set CSUB=
   if exist "!CDIR!\windows\build.cmd" set CSUB=windows\
-  call "!CDIR!\!CSUB!build.cmd"
+  call "!CDIR!\!CSUB!build.cmd" %BUILD_CFG%
   if !errorlevel! neq 0 exit /b !errorlevel!
 )
 
