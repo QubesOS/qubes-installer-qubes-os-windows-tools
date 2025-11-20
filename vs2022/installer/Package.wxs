@@ -73,9 +73,25 @@
       Impersonate="no"
       Return="ignore" />
 
+    <SetProperty
+      Id="PrepareAutologon"
+      Value='"[BIN_DIR]autologon.exe"'
+      Sequence="execute"
+      Before="PrepareAutologon" />
+
+    <CustomAction
+      Id="PrepareAutologon"
+      BinaryRef="Wix4UtilCA_X64"
+      DllEntry="WixQuietExec"
+      Execute="deferred"
+      Impersonate="no"
+      Return="ignore" />
+
     <InstallExecuteSequence>
       <Custom Action="RunInstallHelper" Before="InstallFiles" />
       <Custom Action="PreparePrivateImg" After="InstallFiles" Condition="NOT Installed" />
+      <!-- Run only if Autologon feature is being installed and not being uninstalled -->
+      <Custom Action="PrepareAutologon" After="InstallFiles" Condition="(&amp;Autologon=3) AND NOT (!Autologon=3)" />
       <ScheduleReboot After="InstallFinalize" />
     </InstallExecuteSequence>
 
@@ -113,6 +129,15 @@
       Title="!(loc.FeatureMoveUsersTitle)"
       Description="!(loc.FeatureMoveUsersDescription)">
       <ComponentGroupRef Id="MoveUsersComponents" />
+    </Feature>
+
+    <Feature
+      Id="Autologon"
+      AllowAbsent="yes"
+      AllowAdvertise="no"
+      Title="!(loc.FeatureAutologonTitle)"
+      Description="!(loc.FeatureAutologonDescription)">
+      <ComponentGroupRef Id="AutologonComponents" />
     </Feature>
 
     <Feature

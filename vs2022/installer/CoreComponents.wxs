@@ -350,5 +350,14 @@
           Value="relocate-dir.exe C:\Users Q:\Users" />
       </Component>
     </ComponentGroup>
-  </Fragment>
+
+    <ComponentGroup Id="AutologonComponents">
+      <Component
+        Guid="{3B9CF95A-E6E1-43B2-B501-2E79F5D6C165}"
+        Id="Autologon"
+        Directory="BIN_DIR">
+        <File Source="$(env.QUBES_REPO)\core-agent-windows\bin\autologon.exe" />
+      </Component>
+    </ComponentGroup>
+</Fragment>
 </Wix>
