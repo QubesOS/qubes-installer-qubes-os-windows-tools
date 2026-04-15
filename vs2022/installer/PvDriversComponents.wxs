@@ -81,7 +81,6 @@
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvbd.cat" />
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvbd.inf" />
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenvbd.sys" />
-        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xendisk.sys" />
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xencrsh.sys" />
         <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="3" />
       </Component>
