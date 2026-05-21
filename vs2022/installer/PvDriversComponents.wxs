@@ -27,7 +27,6 @@
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus.cat" />
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus.inf" />
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus.sys" />
-        <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus_monitor.dll" />
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenbus_monitor.exe" />
         <File Source="$(env.QUBES_REPO)\vmm-xen-windows-pvdrivers\bin\xenfilt.sys" />
         <difxapp:Driver AddRemovePrograms="no" PlugAndPlayPrompt="no" Sequence="1" />
