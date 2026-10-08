@@ -1,7 +1,7 @@
 include:
   - project: 'QubesOS/qubes-continuous-integration'
-    file: '/r4.3/gitlab-base.yml'
+    file: '/devel/gitlab-base.yml'
     ref: $CI_BRANCH_REF
   - project: 'QubesOS/qubes-continuous-integration'
-    file: '/r4.3/gitlab-host-qwt.yml'
+    file: '/devel/gitlab-host-qwt.yml'
     ref: $CI_BRANCH_REF
