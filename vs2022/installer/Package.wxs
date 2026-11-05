@@ -59,6 +59,21 @@
       Impersonate="no"
       Return="asyncNoWait" />
 
+    <!-- Disable TRIM. -->
+    <SetProperty
+      Id="DisableTrim"
+      Value='"[System64Folder]fsutil.exe" behavior set DisableDeleteNotify 1'
+      Sequence="execute"
+      Before="DisableTrim" />
+
+    <CustomAction
+      Id="DisableTrim"
+      BinaryRef="Wix4UtilCA_X64"
+      DllEntry="WixQuietExec"
+      Execute="deferred"
+      Impersonate="no"
+      Return="check" />
+
     <SetProperty
       Id="PreparePrivateImg"
       Value='"powershell.exe" -ExecutionPolicy Bypass -NonInteractive -InputFormat None -File "[BIN_DIR]prepare-private-img.ps1"'
@@ -88,6 +103,7 @@
       Return="ignore" />
 
     <InstallExecuteSequence>
+      <Custom Action="DisableTrim" Before="RunInstallHelper" Condition='NOT (REMOVE~="ALL")' />
       <Custom Action="RunInstallHelper" Before="InstallFiles" />
       <Custom Action="PreparePrivateImg" After="InstallFiles" Condition="NOT Installed" />
       <!-- Run only if Autologon feature is being installed and not being uninstalled -->
